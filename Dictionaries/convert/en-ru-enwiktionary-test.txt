@@ -1,0 +1,7 @@
+# English :: Russian dictionary extracted from http://en.wiktionary.org/
+victory {n} /ˈvɪkt(ə)ɹi/ (an instance of having won a competition or battle) :: победа {f} /pobéda/
+brother {n} /ˈbɹʌðɚ/ (male sibling) :: брат {m} /brat/, братец {m} /brátec/ [colloquial], братишка {m} /bratíška/ [colloquial], братан {m} /bratán/ [slang]
+brother {n} (male having parents in common) :: брат {m} /brat/
+abbot {n} /ˈæb.ət/ (superior or head of an abbey or monastery) :: аббат {m} /abbát/, настоятель {m} /nastojátelʹ/, игумен {m} /igúmen/ (orthodoxal)
+Aachen {prop} /ˈɑkən/ (city in North Rhine-Westphalia) :: Аахен, аыаыва [sss], vasa {m} /Áaxen/ [ddddddd]
+Aaron {prop} :: Аарон {m} /Aarón/, ты пидор {p}
