@@ -8,13 +8,45 @@
 
 import Foundation
 
+enum RepetitionStep: Int {
+  case tenMin = 10
+  case halfHour = 30
+  case twelweHours = 720
+  case day = 1440
+  
+  func index() -> Int {
+    switch self {
+      case .tenMin: return 0
+      case .halfHour: return 1
+      case .twelweHours: return 2
+      case .day: return 3
+    }
+  }
+  
+  init(index: Int) {
+    switch index {
+    case 0: self = .tenMin
+      case 1: self = .halfHour
+      case 2: self = .twelweHours
+      case 3: self = .day
+      default: self = .day
+    }
+  }
+}
+
 class DAO {
   var records : [VocRecord] = []
-  let userDefaultsRecordsKey = "VocRecords"
-  let userDefaultsVocabularyKey = "CurrentVocabularyKey"
+  private let userDefaultsRecordsKey = "VocRecords"
+  private let userDefaultsVocabularyKey = "CurrentVocabularyKey"
+  private let userDefaultsRepetitionStepKey = "RepetitionStepKey"
   
   var currentVocabulary = Vocabulary.en_ru_Vocabulary { didSet {
       self.saveOnDisk()
+    }
+  }
+  
+  var repetitionStep: RepetitionStep = .day { didSet {
+    self.saveOnDisk()
     }
   }
   
@@ -35,7 +67,12 @@ class DAO {
   
   func insert(_ record: VocRecord) {
     records.append(record)
+    // propose to enable notifications
     saveOnDisk()
+    if records.count == 10 {
+      NotificationScanner.requestAuthorizationForNotifications { (enabled) in
+      }
+    }
   }
   
   func fetchAllWords() -> [VocRecord] {
@@ -60,12 +97,16 @@ class DAO {
       userDefaults.set(data, forKey: userDefaultsRecordsKey)
       let vocData = try encoder.encode(currentVocabulary)
       userDefaults.set(vocData, forKey: userDefaultsVocabularyKey)
+      
+      userDefaults.set(repetitionStep.rawValue, forKey: userDefaultsRepetitionStepKey)
     } catch {
       print(error)
     }
   }
   
   private func readFromDisk() {
+    //read repetitin step
+    
     // read records
     if let data = UserDefaults.standard.value(forKey: userDefaultsRecordsKey) as? Data {
       let decoder = PropertyListDecoder()
@@ -88,5 +129,9 @@ class DAO {
         self.currentVocabulary = Vocabulary.en_ru_Vocabulary
       }
     }
+    if let step = UserDefaults.standard.value(forKey: userDefaultsRepetitionStepKey) as? Int {
+      self.repetitionStep = RepetitionStep(rawValue: step)!
+    }
+
   }
 }

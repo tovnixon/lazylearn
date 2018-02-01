@@ -33,7 +33,8 @@ struct VocRecord: Codable, Hashable {
   
   mutating func gradeRecallEasyness(grade: RecallGrade) {
     let nextInterval = self.srData.doRepetition(with: grade)
-    if let next = Calendar.current.date(byAdding: .hour, value: nextInterval, to: Date()) {
+    let nextIntervalMinutes = nextInterval * DAO.shared.repetitionStep.rawValue
+    if let next = Calendar.current.date(byAdding: .minute, value: nextIntervalMinutes, to: Date()) {
       nextDisplayDate = next
     } else {
       print("VocRecord grade error, can't get next display date")
@@ -43,7 +44,6 @@ struct VocRecord: Codable, Hashable {
   
   public func shouldBeProposedNow() -> Bool {
     return Date() >= nextDisplayDate
-   //   return fabs(Date().timeIntervalSince(nextDisplayDate)) <= 24*3600.0
   }
   
   public var hashValue: Int { get {

@@ -37,7 +37,7 @@ class SRViewController: UIViewController {
     super.viewDidLoad()
     setupUI()
     synthesizer.delegate = self
-    records = DAO.shared.fetchAllWords()
+    records = DAO.shared.fetchAllWords().shuffled()
     getNextCard()
   }
   
@@ -114,7 +114,7 @@ class SRViewController: UIViewController {
       }
     } else {
       index = 0
-      records = DAO.shared.fetchAllWords()
+      records = DAO.shared.fetchAllWords().shuffled()
       updateState()
     }
     

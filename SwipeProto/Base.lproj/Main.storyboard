@@ -36,30 +36,69 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>
-                            <tableViewSection id="HQW-uV-Ab4">
+                            <tableViewSection headerTitle="Repetition step" footerTitle="Time interval to propose word next time depending on memorize grade" id="HQW-uV-Ab4">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="Aer-bZ-x0l" detailTextLabel="L2v-vI-3vb" style="IBUITableViewCellStyleValue1" id="cgT-zj-s70">
-                                        <rect key="frame" x="0.0" y="35" width="375" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="cgT-zj-s70">
+                                        <rect key="frame" x="0.0" y="55.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cgT-zj-s70" id="j1L-Np-qYI">
-                                            <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Dictionary" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Aer-bZ-x0l">
-                                                    <rect key="frame" x="16" y="12" width="78" height="20.5"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="L2v-vI-3vb">
-                                                    <rect key="frame" x="296" y="12" width="44" height="20.5"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="rLO-kX-48a">
+                                                    <rect key="frame" x="10" y="4" width="355" height="36.5"/>
+                                                    <segments>
+                                                        <segment title="10 min"/>
+                                                        <segment title="1 hour"/>
+                                                        <segment title="8 hours"/>
+                                                        <segment title="1 day"/>
+                                                    </segments>
+                                                    <connections>
+                                                        <action selector="repetitionStepChanged" destination="qH8-RM-eIU" eventType="valueChanged" id="BaR-1A-jF5"/>
+                                                    </connections>
+                                                </segmentedControl>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="rLO-kX-48a" firstAttribute="leading" secondItem="j1L-Np-qYI" secondAttribute="leading" constant="10" id="Jm8-xD-xRI"/>
+                                                <constraint firstAttribute="trailing" secondItem="rLO-kX-48a" secondAttribute="trailing" constant="10" id="LcS-EG-1CN"/>
+                                                <constraint firstItem="rLO-kX-48a" firstAttribute="top" secondItem="j1L-Np-qYI" secondAttribute="top" constant="4" id="SwW-l9-3Zs"/>
+                                                <constraint firstAttribute="bottom" secondItem="rLO-kX-48a" secondAttribute="bottom" constant="4" id="g2U-Y7-FwA"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection id="mYq-SJ-R7l">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="kRA-l8-WSg">
+                                        <rect key="frame" x="0.0" y="163.5" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="kRA-l8-WSg" id="hik-R6-enT">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Local notifications are disabled" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ui5-Ql-bdn">
+                                                    <rect key="frame" x="16" y="11" width="237" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rkg-2E-tAj">
+                                                    <rect key="frame" x="312" y="6" width="47" height="30"/>
+                                                    <state key="normal" title="Enable"/>
+                                                    <connections>
+                                                        <action selector="enableNotifications" destination="qH8-RM-eIU" eventType="touchUpInside" id="NZ8-QZ-kcC"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Rkg-2E-tAj" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Ui5-Ql-bdn" secondAttribute="trailing" constant="20" id="9GK-KS-xkN"/>
+                                                <constraint firstAttribute="bottom" secondItem="Rkg-2E-tAj" secondAttribute="bottom" constant="7.5" id="S6q-HY-Ag9"/>
+                                                <constraint firstItem="Ui5-Ql-bdn" firstAttribute="centerY" secondItem="hik-R6-enT" secondAttribute="centerY" id="dgB-GX-UbQ"/>
+                                                <constraint firstAttribute="trailing" secondItem="Rkg-2E-tAj" secondAttribute="trailing" constant="16" id="eji-RF-7ho"/>
+                                                <constraint firstItem="Rkg-2E-tAj" firstAttribute="top" secondItem="hik-R6-enT" secondAttribute="top" constant="6" id="hGM-sX-TIt"/>
+                                                <constraint firstItem="Ui5-Ql-bdn" firstAttribute="leading" secondItem="hik-R6-enT" secondAttribute="leading" constant="16" id="mbe-cN-j1d"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
@@ -71,10 +110,14 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Root View Controller" id="KyO-h4-1VL"/>
+                    <connections>
+                        <outlet property="notificationsSection" destination="kRA-l8-WSg" id="5vF-yl-qt8"/>
+                        <outlet property="repetitionStep" destination="rLO-kX-48a" id="59h-JX-P1l"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qKM-n5-YzV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1921" y="-501"/>
+            <point key="canvasLocation" x="1920.8" y="-501.49925037481262"/>
         </scene>
         <!--settings-->
         <scene sceneID="bAu-cu-Cm8">
@@ -278,13 +321,13 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jLj-J8-boq">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jLj-J8-boq">
                                 <rect key="frame" x="325" y="500.5" width="30" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="30" id="gSA-tt-5pc"/>
                                     <constraint firstAttribute="height" constant="30" id="kgC-A9-gfG"/>
                                 </constraints>
-                                <state key="normal" title="V"/>
+                                <state key="normal" image="volume"/>
                                 <connections>
                                     <action selector="voice" destination="w5c-RM-dhR" eventType="touchUpInside" id="Xqw-UJ-xs3"/>
                                 </connections>
@@ -337,10 +380,10 @@
             </objects>
             <point key="canvasLocation" x="704.79999999999995" y="-1227.4362818590705"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Tab Bar View Controller-->
         <scene sceneID="rUx-Vu-Cgn">
             <objects>
-                <tabBarController id="Wq3-Wt-AUX" sceneMemberID="viewController">
+                <tabBarController id="Wq3-Wt-AUX" customClass="TabBarViewController" customModule="SwipeProto" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="wrY-vC-G4h">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -439,13 +482,13 @@
                                     <constraint firstItem="6Lt-5B-2aH" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="4Iz-it-3gi" secondAttribute="trailing" constant="10" id="scp-wW-bIV"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CVg-qN-Hpr">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CVg-qN-Hpr">
                                 <rect key="frame" x="329" y="292" width="30" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="30" id="JfC-2R-Nwm"/>
                                     <constraint firstAttribute="height" constant="30" id="jRk-kY-FU4"/>
                                 </constraints>
-                                <state key="normal" title="V"/>
+                                <state key="normal" image="volume"/>
                                 <connections>
                                     <action selector="voice" destination="yyf-UZ-jMa" eventType="touchUpInside" id="eNV-Gg-Axc"/>
                                 </connections>
@@ -503,5 +546,6 @@
         <image name="icons8-brain" width="25" height="25"/>
         <image name="icons8-literature" width="25" height="25"/>
         <image name="icons8-settings" width="25" height="25"/>
+        <image name="volume" width="256" height="256"/>
     </resources>
 </document>

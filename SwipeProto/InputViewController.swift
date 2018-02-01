@@ -61,7 +61,7 @@ UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFl
     lblTitle.font = UIFont.vocHeaders
     lblTitle.text = DAO.shared.currentVocabulary.title()
     btnNext.layer.cornerRadius = 10.0
-    cnstrNextWidth.constant = 280
+    //cnstrNextWidth.constant = 280
     cnstrNextHeight.constant = 50
     
     txtInput.text = ""
@@ -93,7 +93,7 @@ UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFl
     collectionView.dataSource = self
     
     collectionView.isScrollEnabled = false
-    collectionView.backgroundColor = .lightGray
+    collectionView.backgroundColor = .clear
     
     let nibName3 = UINib(nibName: "SuggestionCollectionViewCell", bundle: nil)
     collectionView.register(nibName3, forCellWithReuseIdentifier: "suggestionCell")
@@ -238,7 +238,7 @@ UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFl
       self.reloadTableViewTrans()
       
       txtTrans.textAlignment = .center
-      cnstrNextWidth.constant = cnstrNextWidth.constant * 1.2
+      //cnstrNextWidth.constant = cnstrNextWidth.constant * 1.2
       cnstrNextHeight.constant = cnstrNextHeight.constant * 1.2
       UIView.animate(withDuration: 0.2, animations: {
         self.btnNext.setTitle("Confirm", for: .normal)
@@ -365,10 +365,14 @@ UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFl
       cell.word.text = suggestionsTrans[indexPath.row]
     }
     cell.backgroundColor = .clear
-    cell.contentView.backgroundColor = .lightGray
-    if indexPath.row % 2 == 0 {
-      cell.contentView.backgroundColor = .gray
-    }
+    cell.contentView.backgroundColor = .clear
+//    if indexPath.row % 2 == 0 {
+//      cell.contentView.backgroundColor = .gray
+//    }
+//    cell.layer.borderWidth = 1.0
+//    cell.layer.cornerRadius = 4.0
+//    cell.layer.borderColor = UIColor.red.cgColor
+
     return cell
   }
   
@@ -413,9 +417,9 @@ UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFl
     return size
   }
   
-  private func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets
+  func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets
   {
-    return UIEdgeInsets(top: 0, left: 4, bottom: 4, right: 4)
+    return UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
   }
   
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {

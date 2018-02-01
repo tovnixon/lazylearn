@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="SanFranciscoDisplay-Regular.otf">
-            <string>SanFranciscoDisplay-Regular</string>
+        <array key="SanFranciscoDisplay-Medium.otf">
+            <string>SanFranciscoDisplay-Medium</string>
         </array>
     </customFonts>
     <objects>
@@ -25,18 +25,19 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="headTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.69999999999999996" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VZQ-Z7-lIa">
-                        <rect key="frame" x="0.0" y="0.0" width="124" height="35"/>
-                        <fontDescription key="fontDescription" name="SanFranciscoDisplay-Regular" family="San Francisco Display" pointSize="24"/>
+                        <rect key="frame" x="6" y="1" width="112" height="33"/>
+                        <fontDescription key="fontDescription" name="SanFranciscoDisplay-Medium" family="San Francisco Display" pointSize="23"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
             </view>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="VZQ-Z7-lIa" firstAttribute="top" secondItem="ZTg-uK-7eu" secondAttribute="top" id="3E3-KE-4ZV"/>
-                <constraint firstItem="ZTg-uK-7eu" firstAttribute="trailing" secondItem="VZQ-Z7-lIa" secondAttribute="trailing" id="ZX4-rb-Kgc"/>
-                <constraint firstItem="ZTg-uK-7eu" firstAttribute="bottom" secondItem="VZQ-Z7-lIa" secondAttribute="bottom" id="hAG-oZ-qNX"/>
-                <constraint firstItem="VZQ-Z7-lIa" firstAttribute="leading" secondItem="ZTg-uK-7eu" secondAttribute="leading" id="hJc-c2-Hgc"/>
+                <constraint firstItem="VZQ-Z7-lIa" firstAttribute="top" secondItem="ZTg-uK-7eu" secondAttribute="top" constant="1" id="3E3-KE-4ZV"/>
+                <constraint firstItem="ZTg-uK-7eu" firstAttribute="trailing" secondItem="VZQ-Z7-lIa" secondAttribute="trailing" constant="6" id="ZX4-rb-Kgc"/>
+                <constraint firstItem="ZTg-uK-7eu" firstAttribute="bottom" secondItem="VZQ-Z7-lIa" secondAttribute="bottom" constant="1" id="hAG-oZ-qNX"/>
+                <constraint firstItem="VZQ-Z7-lIa" firstAttribute="leading" secondItem="ZTg-uK-7eu" secondAttribute="leading" constant="6" id="hJc-c2-Hgc"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <size key="customSize" width="124" height="35"/>
