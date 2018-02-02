@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UserNotifications
 
 struct VocRecord: Codable, Hashable {
   
@@ -15,14 +16,10 @@ struct VocRecord: Codable, Hashable {
   var trans: String
   var creationDate = Date()
   var srData: StepRepetitionRecord = StepRepetitionRecord()
-  var nextDisplayDate: Date = Date()
+  var nextDisplayDate: Date = Date(timeIntervalSince1970: 0)
+  var neverLearned = true
   
   let identifier: String
-  
-  private var displayCounter: Int = 0 // how many times word was showed in training
-  private var knowCounter: Int = 0 // how many time word was claimed as known
-  private var dontKnowCounter: Int = 0 // how many time the word was claimed as unknown
-  private var trainingResults: [Int] = [Int]()
   
   init(_ word: String, trans: String, vocabulary: Vocabulary) {
     self.identifier = word + trans + String(describing: creationDate)
@@ -32,6 +29,7 @@ struct VocRecord: Codable, Hashable {
   }
   
   mutating func gradeRecallEasyness(grade: RecallGrade) {
+    self.neverLearned = false
     let nextInterval = self.srData.doRepetition(with: grade)
     let nextIntervalMinutes = nextInterval * DAO.shared.repetitionStep.rawValue
     if let next = Calendar.current.date(byAdding: .minute, value: nextIntervalMinutes, to: Date()) {

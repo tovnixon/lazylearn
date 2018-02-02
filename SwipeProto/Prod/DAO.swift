@@ -9,7 +9,7 @@
 import Foundation
 
 enum RepetitionStep: Int {
-  case tenMin = 10
+  case tenMin = 1//10
   case halfHour = 30
   case twelweHours = 720
   case day = 1440
@@ -45,7 +45,7 @@ class DAO {
     }
   }
   
-  var repetitionStep: RepetitionStep = .day { didSet {
+  var repetitionStep: RepetitionStep = .twelweHours { didSet {
     self.saveOnDisk()
     }
   }
@@ -79,6 +79,11 @@ class DAO {
     return records
   }
   
+  func recordsSortedByProposalDate() -> [VocRecord] {
+    let sorted = records.sorted(by: { $0.nextDisplayDate.compare($1.nextDisplayDate) == .orderedAscending } )
+    return sorted
+  }
+  
   func availableToLearnRecordsCount() -> Int {
     var count = 0
     for r in records {
@@ -88,6 +93,17 @@ class DAO {
     }
     return count
   }
+  
+  func availableToRepeatRecordsCount() -> Int {
+    var count = 0
+    for r in records {
+      if r.shouldBeProposedNow() && !r.neverLearned {
+        count += 1
+      }
+    }
+    return count
+  }
+
     
   private func saveOnDisk() {
     let encoder = PropertyListEncoder()

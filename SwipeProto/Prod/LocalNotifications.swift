@@ -63,7 +63,29 @@ class NotificationScanner {
     Notification.Name.newRecordsAvailable.post(userInfo: ["count": availableRecordsCount])
   }
 
-  func scanWordsAndSchedule() {
-    
+  static func scanWordsAndSchedule() {
+    let center = UNUserNotificationCenter.current()
+    center.removeAllDeliveredNotifications()
+    let records = DAO.shared.recordsSortedByProposalDate()
+    var i: Int = 1
+    for r in records {
+      if !r.neverLearned {
+        let content = UNMutableNotificationContent()
+        content.badge = i as NSNumber
+        let unitFlags: Set<Calendar.Component> = [.minute, .hour, .day, .month, .year]
+        let components = NSCalendar.current.dateComponents(unitFlags, from: r.nextDisplayDate)
+        let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
+        let identifier = r.identifier
+        let request = UNNotificationRequest(identifier: identifier,
+                                            content: content, trigger: trigger)
+        center.add(request, withCompletionHandler: { (error) in
+          if let error = error {
+            print("Error scheduling local notification \(error)")
+          }
+        })
+        i += 1
+      }
+    }
+    UIApplication.shared.applicationIconBadgeNumber = DAO.shared.availableToRepeatRecordsCount()
   }
 }
