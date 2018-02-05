@@ -24,7 +24,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="124" height="35"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="headTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.69999999999999996" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VZQ-Z7-lIa">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VZQ-Z7-lIa">
                         <rect key="frame" x="6" y="1" width="112" height="33"/>
                         <fontDescription key="fontDescription" name="SanFranciscoDisplay-Medium" family="San Francisco Display" pointSize="23"/>
                         <nil key="textColor"/>

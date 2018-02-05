@@ -9,7 +9,7 @@
 import Foundation
 
 enum RepetitionStep: Int {
-  case tenMin = 1//10
+  case tenMin = 10
   case halfHour = 30
   case twelweHours = 720
   case day = 1440
@@ -45,7 +45,7 @@ class DAO {
     }
   }
   
-  var repetitionStep: RepetitionStep = .twelweHours { didSet {
+  var repetitionStep: RepetitionStep = .tenMin { didSet {
     self.saveOnDisk()
     }
   }

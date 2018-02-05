@@ -19,9 +19,11 @@ class SRViewController: UIViewController {
   var records: [VocRecord] = [VocRecord]()
   var synthesizer = AVSpeechSynthesizer()
   var index: Int = 0
+  var forceTrainingMode = false
   
+  @IBOutlet weak var btnTrain: UIButton!
   @IBOutlet weak var lblNoData: UILabel!
-  
+  @IBOutlet weak var lblTitle: UILabel!
   @IBOutlet weak var wordsView: UIView!
   @IBOutlet weak var lblWord: UILabel!
   @IBOutlet weak var lblTrans: UILabel!
@@ -48,7 +50,7 @@ class SRViewController: UIViewController {
   
   func updateState() {
     let availableWordsCount = DAO.shared.availableToLearnRecordsCount()
-    if availableWordsCount == 0 {
+    if availableWordsCount == 0 && !forceTrainingMode {
       state = .noData
     } else {
       state = .normal
@@ -59,11 +61,13 @@ class SRViewController: UIViewController {
   func updateUI() {
     switch state {
     case .noData:
+      btnTrain.isHidden = false
       lblNoData.isHidden = false
       wordsView.isHidden = true
       btnTranslate.isHidden = true
       gradeView.isHidden = true
     case .normal:
+      btnTrain.isHidden = true
       lblNoData.isHidden = true
       wordsView.isHidden = false
       btnTranslate.isHidden = false
@@ -73,6 +77,9 @@ class SRViewController: UIViewController {
   }
   
   func setupUI() {
+    lblTitle.textColor = UIColor.vocInputText
+    lblTitle.font = UIFont.vocHeaders
+
     view.backgroundColor = UIColor.lightGray
     wordsView.layer.cornerRadius = 20.0
     btnTranslate.layer.cornerRadius = 10.0
@@ -105,7 +112,7 @@ class SRViewController: UIViewController {
   
   func getNextCard() {
     if let r = records[safe: index] {
-      if r.shouldBeProposedNow() && r.trans.count > 0 && r.word.count > 0 {
+      if (r.shouldBeProposedNow() || forceTrainingMode) && r.trans.count > 0 && r.word.count > 0 {
         record = r
         lblWord.text = record!.trans
       } else {
@@ -115,9 +122,15 @@ class SRViewController: UIViewController {
     } else {
       index = 0
       records = DAO.shared.fetchAllWords().shuffled()
+      forceTrainingMode = false
       updateState()
     }
     
+  }
+  
+  @IBAction func train() {
+    forceTrainingMode = true
+    updateState()
   }
   
   @IBAction func translate() {

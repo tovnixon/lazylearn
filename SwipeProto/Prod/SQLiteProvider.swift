@@ -68,7 +68,7 @@ class SQLiteManager {
     
     let start = Date()
     
-    let queryString = "SELECT DISTINCT word FROM dictionary WHERE word LIKE '\(text)%'"
+    let queryString = "SELECT * FROM dictionary WHERE word LIKE '\(text)%' GROUP BY (word)"
     var stmp: OpaquePointer?
     if sqlite3_prepare(db, queryString, -1, &stmp, nil) != SQLITE_OK {
       let error = String(cString: sqlite3_errmsg(db)!)

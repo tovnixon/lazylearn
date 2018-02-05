@@ -19,13 +19,14 @@ UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFl
   }
 
   @IBOutlet weak var lblTitle: UILabel!
+  @IBOutlet weak var lblPartOfSpeech: UILabel!
   @IBOutlet weak var txtInput: UnderlineTextField!
   @IBOutlet weak var txtTrans: UnderlineTextField!
   @IBOutlet weak var cnstrWordTop: NSLayoutConstraint!
   @IBOutlet weak var btnNext: UIButton!
   @IBOutlet weak var btnVoice: UIButton!
-  @IBOutlet weak var cnstrNextWidth: NSLayoutConstraint!
   @IBOutlet weak var cnstrNextHeight: NSLayoutConstraint!
+  
   var synthesizer = AVSpeechSynthesizer()
   
   var collectionView: UICollectionView!
@@ -33,21 +34,9 @@ UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFl
   
   var suggestions = [SQLRecord]()
   var suggestionsTrans = [String]()
-  
+  var currentWord: SQLRecord?
   let dbProvider = SQLiteManager(name: DAO.shared.currentVocabulary.database)
   
-  let colorScheme0 = [UIColor.init(red: 0.067, green: 0.467, blue: 0.722, alpha: 1.0),
-                     UIColor.init(red: 0.110, green: 0.643, blue: 0.988, alpha: 1.0),
-                     UIColor.init(red: 0.361, green: 0.371, blue: 0.988, alpha: 1.0),
-                     UIColor.init(red: 0.969, green: 0.725, blue: 0.169, alpha: 1.0),
-                     UIColor.init(red: 0.992, green: 0.576, blue: 0.149, alpha: 1.0)]
-  
-  let colorScheme = [UIColor.init(red:0.04, green:0.01, blue:0.11, alpha:1.0),
-                     UIColor.init(red:0.08, green:0.02, blue:0.19, alpha:1.0),
-                     UIColor.init(red:0.11, green:0.01, blue:0.31, alpha:1.0),
-                     UIColor.init(red:0.17, green:0.04, blue:0.45, alpha:1.0),
-                     UIColor.init(red:0.05, green:0.01, blue:0.15, alpha:1.0)]
-
   let myTextInputMode = UITextInputMode()
   var myInputViewController = UIInputViewController()
   var inputValue: String? = ""
@@ -57,11 +46,12 @@ UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFl
     super.viewDidLoad()
     _ = dbProvider.openDataBase()
     
+    lblPartOfSpeech.text = nil
+    btnVoice.isHidden = true
     lblTitle.textColor = UIColor.vocInputText
     lblTitle.font = UIFont.vocHeaders
     lblTitle.text = DAO.shared.currentVocabulary.title()
     btnNext.layer.cornerRadius = 10.0
-    //cnstrNextWidth.constant = 280
     cnstrNextHeight.constant = 50
     
     txtInput.text = ""
@@ -72,7 +62,7 @@ UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFl
     txtInput.placeholder = "new word"
     txtInput.becomeFirstResponder()
     txtInput.textAlignment = .center
-    txtInput.font = UIFont(name: "SanFranciscoDisplay-Bold", size: 50)
+    txtInput.font = UIFont.vocInputText
     //
     txtTrans.text = ""
     txtTrans.forceLanguageCode = DAO.shared.currentVocabulary.translationLang.code.rawValue
@@ -82,18 +72,16 @@ UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFl
     txtTrans.backgroundColor = .clear
     txtTrans.placeholder = "translation"
     txtTrans.textAlignment = .center
-    txtTrans.font = UIFont(name: "SanFranciscoDisplay-Bold", size: 50)
+    txtTrans.font = UIFont.vocInputText
     txtTrans.isHidden = true
     //
     let flowLayout = UICollectionViewFlowLayout()
-    //flowLayout.itemSize = CGSize(width: view.frame.size.width * 0.5 - 10, height: 40)
-    
-    collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 160), collectionViewLayout: flowLayout)
+    collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: flowLayout)
     collectionView.delegate = self
     collectionView.dataSource = self
     
     collectionView.isScrollEnabled = false
-    collectionView.backgroundColor = .clear
+    collectionView.backgroundColor = .lightGray
     
     let nibName3 = UINib(nibName: "SuggestionCollectionViewCell", bundle: nil)
     collectionView.register(nibName3, forCellWithReuseIdentifier: "suggestionCell")
@@ -130,15 +118,12 @@ UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFl
     } else if suggestions.count <= 4 {
       h = 2 * defaultCellHeight
     }
-    //UIView.animate(withDuration: 0.1) {
-    //  self.view.layoutIfNeeded()
-        collectionView.frame = CGRect(x: collectionView.frame.origin.x, y: collectionView.frame.origin.y, width: collectionView.frame.size.width, height:h)
-      self.txtInput.reloadInputViews()
-    //}
+    // highlight part of word which matches to input
+    collectionView.frame = CGRect(x: collectionView.frame.origin.x, y: collectionView.frame.origin.y, width: collectionView.frame.size.width, height:h)
+    self.txtInput.reloadInputViews()
   }
   
   func reloadTableViewTrans() {
-    //tableViewTrans.reloadData()
     collectionView.reloadData()
     let defaultCellHeight = suggestionCellHeight(for: suggestionsTrans.count)
     
@@ -158,13 +143,29 @@ UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFl
   
   func suggestionCellHeight(for amount: Int) -> CGFloat {
     switch amount {
-    case 1...2: return 50 //60
-    case 3...4: return 35 //40
-    default: return 27 //32
+    case 1...2: return 120
+    case 3...4: return 60
+    default: return 40
     }
   }
 
   @IBAction func next() {
+    if txtInput.isFirstResponder && inputState == .inputWord {
+      if let text = txtInput.text {
+        var match = suggestions.filter {$0.word.trimmingCharacters(in: .whitespacesAndNewlines) == text}
+        if match.count == 1 {
+          // todo: refactor, fix duplication code
+          let record = match[0]
+          lblPartOfSpeech.text = record.partOfSpeech
+          currentWord = record
+          suggestionsTrans = dbProvider.fetchTranslations(for: record.word)
+          reloadTableViewTrans()
+          proceedToNextState()
+          return
+        }
+      }
+
+    }
     proceedToNextState()
   }
   
@@ -185,7 +186,8 @@ UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFl
       }
       txtTrans.isHidden = false
       txtTrans.alpha = 0
-      cnstrWordTop.constant = 20 //70
+     // cnstrWordTop.constant = 30 //70
+      txtInput.solidUnderline = true
       UIView.animate(withDuration: 0.27, animations: {
         self.view.layoutIfNeeded()
         self.txtTrans.alpha = 1
@@ -194,6 +196,9 @@ UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFl
         self.inputState = .inputConfirm
       })
     case .inputTranslation:
+      if txtInput.text?.count == 0 || txtTrans.text?.count == 0 {
+        return
+      }
       let check = UIImageView(image: #imageLiteral(resourceName: "check"))
       self.view.addSubview(check)
       check.center = CGPoint(x: self.view.center.x, y: self.view.center.y - 100)
@@ -203,8 +208,7 @@ UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFl
       }, completion: { (completed) in
         check.removeFromSuperview()
       })
-      cnstrWordTop.constant = 20.0 //120
-      cnstrNextWidth.constant = 280
+ //     cnstrWordTop.constant = 20.0 //120
       cnstrNextHeight.constant = 50
       UIView.animate(withDuration: 0.1, animations: {
         self.view.layoutIfNeeded()
@@ -212,21 +216,25 @@ UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFl
         self.txtInput.becomeFirstResponder()
         self.btnNext.setTitle("Next", for: .normal)
 
-      }, completion: { (completed) in
-        let r = VocRecord(self.txtInput.text!, trans: self.txtTrans.text!, vocabulary: DAO.shared.currentVocabulary)
+      }, completion: { [unowned self] (completed) in
+        var r = VocRecord(self.txtInput.text!, trans: self.txtTrans.text!, vocabulary: DAO.shared.currentVocabulary)
+        r.partOfSpeech = self.currentWord?.partOfSpeech
         DAO.shared.insert(r)
         
         self.txtInput.text = nil
         self.txtTrans.text = nil
+        self.txtInput.solidUnderline = false
+        self.txtTrans.solidUnderline = false
         self.txtTrans.isHidden = true
-        self.txtTrans.font = UIFont(name: "SanFranciscoDisplay-Bold", size: 50)
-        self.txtInput.font = UIFont(name: "SanFranciscoDisplay-Bold", size: 50)
+        self.btnVoice.isHidden = true
         self.suggestions.removeAll()
         self.suggestionsTrans.removeAll()
         self.reloadTableViewTrans()
         self.reloadTableView()
         self.inputValue = ""
         self.translationValue = ""
+        self.currentWord = nil
+        self.lblPartOfSpeech.text = nil
         self.inputState = .inputWord
         
       })
@@ -236,9 +244,7 @@ UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFl
       }
       self.suggestionsTrans.removeAll()
       self.reloadTableViewTrans()
-      
-      txtTrans.textAlignment = .center
-      //cnstrNextWidth.constant = cnstrNextWidth.constant * 1.2
+      txtTrans.solidUnderline = true
       cnstrNextHeight.constant = cnstrNextHeight.constant * 1.2
       UIView.animate(withDuration: 0.2, animations: {
         self.btnNext.setTitle("Confirm", for: .normal)
@@ -246,9 +252,6 @@ UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFl
       }, completion: { (completed) in
       
       })
-      
-      txtTrans.font = UIFont(name: "SanFranciscoDisplay-Heavy", size: 50)
-      txtInput.font = UIFont(name: "SanFranciscoDisplay-Heavy", size: 50)
       self.inputState = .inputTranslation
       break
     }
@@ -281,20 +284,23 @@ UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFl
   
   @IBAction func textEditingChanged(sender: UITextField) {
     if sender === txtInput {
-      txtInput.textAlignment = .left
       if let text = sender.text {
+        if currentWord?.word != text {
+          lblPartOfSpeech.text = nil
+        }
         if text.count == 0 {
           txtInput.solidUnderline = false
+          btnVoice.isHidden = true
         }
         if (text.count >= 2) {
           suggestions = dbProvider.fetchWords(by: text)
+          btnVoice.isHidden = false
         } else {
           suggestions.removeAll()
         }
       }
       self.reloadTableView()
     } else {
-      txtTrans.textAlignment = .left
       if let text = sender.text {
         if text.count == 0 {
           txtTrans.solidUnderline = false
@@ -306,42 +312,49 @@ UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFl
   
   func textFieldShouldReturn(_ textField: UITextField) -> Bool {
     if textField === txtInput {
+      // check if input text matches to one of suggestions but user ignored it
+      if let text = txtInput.text {
+        var match = suggestions.filter {$0.word.trimmingCharacters(in: .whitespacesAndNewlines) == text}
+        if match.count == 1 {
+          // todo: refactor, fix duplication code
+          let record = match[0]
+          lblPartOfSpeech.text = record.partOfSpeech
+          currentWord = record
+          suggestionsTrans = dbProvider.fetchTranslations(for: record.word)
+          reloadTableViewTrans()
+          proceedToNextState()
+          return true
+        }
+      }
       suggestions.removeAll()
       reloadTableView()
       reloadTableViewTrans()
     } else {
-      //suggestionsTrans.removeAll()
       reloadTableViewTrans()
     }
-    //textField.resignFirstResponder()
     self.proceedToNextState()
     return true
   }
   
   func textFieldDidEndEditing(_ textField: UITextField) {
     if (textField === txtInput) {
-      txtInput.textAlignment = .center
-      txtInput.solidUnderline = true
       inputValue = txtInput.text
     } else {
-      txtTrans.textAlignment = .center
-      txtTrans.solidUnderline = true
       translationValue = txtTrans.text
     }
-    if let t = textField.text {
-      if t.count > 0 {
-      //  _ = self.textFieldShouldReturn(textField)
-      }
+    if let text = textField.text {
+      (textField as! UnderlineTextField).solidUnderline = text.count > 0
     }
-    // move recent words down to fill keyboard's place
   }
   
   func textFieldDidBeginEditing(_ textField: UITextField) {
-//    txtInput.textAlignment = .left
     if textField === txtInput {
       inputState = .inputWord
     } else if textField === txtTrans {
       inputState = .inputConfirm
+    }
+    if let text = textField.text {
+      (textField as! UnderlineTextField).solidUnderline = text.count != 0
     }
   }
 
@@ -360,35 +373,28 @@ UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFl
     let cellId = "suggestionCell"
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath as IndexPath) as! SuggestionCollectionViewCell
     if txtInput.isFirstResponder {
-      cell.word.text = suggestions[indexPath.row].word
+      cell.word.text = suggestions[indexPath.row].word//.trimmingCharacters(in: .whitespacesAndNewlines)
     } else if txtTrans.isFirstResponder {
-      cell.word.text = suggestionsTrans[indexPath.row]
+      cell.word.text = suggestionsTrans[indexPath.row]//.trimmingCharacters(in: .whitespacesAndNewlines)
     }
     cell.backgroundColor = .clear
     cell.contentView.backgroundColor = .clear
-//    if indexPath.row % 2 == 0 {
-//      cell.contentView.backgroundColor = .gray
-//    }
-//    cell.layer.borderWidth = 1.0
-//    cell.layer.cornerRadius = 4.0
-//    cell.layer.borderColor = UIColor.red.cgColor
-
     return cell
   }
   
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     if (txtInput.isFirstResponder) {
-      if let word = suggestions[safe: indexPath.row]?.word {
-        txtInput.text = word
+      if let record = suggestions[safe: indexPath.row] {
+        txtInput.text = record.word//.trimmingCharacters(in: .whitespacesAndNewlines)
+        lblPartOfSpeech.text = record.partOfSpeech
+        currentWord = record
         suggestionsTrans = dbProvider.fetchTranslations(for: txtInput.text!)
         reloadTableViewTrans()
         proceedToNextState()
-        //_ = textFieldShouldReturn(txtInput)
       }
     } else if txtTrans.isFirstResponder {
       if let trans = suggestionsTrans[safe: indexPath.row] {
-        txtTrans.text = trans
-        //_ = textFieldShouldReturn(txtTrans)
+        txtTrans.text = trans//.trimmingCharacters(in: .whitespacesAndNewlines)
         proceedToNextState()
       }
     }
@@ -402,7 +408,7 @@ UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFl
     
     let width = collectionView.bounds.size.width
     let defaultCellHeight = suggestionCellHeight(for: cellsCount)
-    var size = CGSize(width: 100, height: defaultCellHeight)
+    var size: CGSize
     let fullSize = CGSize(width: width, height: defaultCellHeight)
     let halfSize = CGSize(width: width * 0.5 - 10, height: defaultCellHeight);
     switch cellsCount {
@@ -415,11 +421,6 @@ UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFl
       size = halfSize
     }
     return size
-  }
-  
-  func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets
-  {
-    return UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
   }
   
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {

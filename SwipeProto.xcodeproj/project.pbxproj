@@ -21,8 +21,8 @@
 		719F682220228B300096E35A /* CollectionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719F682120228B300096E35A /* CollectionExtensions.swift */; };
 		71B5A47F1FDEEA05001ECE87 /* DAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B5A47E1FDEEA05001ECE87 /* DAO.swift */; };
 		71D37D7D1FC1F39000E1A88C /* UnderlineTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D37D7C1FC1F39000E1A88C /* UnderlineTextField.swift */; };
-		71D37D861FC4BCF200E1A88C /* WordPairTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D37D841FC4BCF200E1A88C /* WordPairTableViewCell.swift */; };
-		71D37D871FC4BCF200E1A88C /* WordPairTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71D37D851FC4BCF200E1A88C /* WordPairTableViewCell.xib */; };
+		71D37D861FC4BCF200E1A88C /* VocRecordTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D37D841FC4BCF200E1A88C /* VocRecordTableViewCell.swift */; };
+		71D37D871FC4BCF200E1A88C /* VocRecordTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71D37D851FC4BCF200E1A88C /* VocRecordTableViewCell.xib */; };
 		71D37D8B1FC831DD00E1A88C /* ProtoStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D37D8A1FC831DD00E1A88C /* ProtoStyle.swift */; };
 		71D37D8E1FC8A89C00E1A88C /* SuggestionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D37D8C1FC8A89C00E1A88C /* SuggestionCollectionViewCell.swift */; };
 		71D37D8F1FC8A89C00E1A88C /* SuggestionCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71D37D8D1FC8A89C00E1A88C /* SuggestionCollectionViewCell.xib */; };
@@ -36,8 +36,6 @@
 		71E7B2C52018C4C4008A7F81 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71E7B2C42018C4C4008A7F81 /* SettingsTableViewController.swift */; };
 		71E7B2C72018C5CE008A7F81 /* Vocabularies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71E7B2C62018C5CE008A7F81 /* Vocabularies.swift */; };
 		71E7B2C9201AFE37008A7F81 /* RecordsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71E7B2C8201AFE37008A7F81 /* RecordsViewController.swift */; };
-		71E7B2CC201AFEF5008A7F81 /* RecordTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71E7B2CA201AFEF5008A7F81 /* RecordTableViewCell.swift */; };
-		71E7B2CD201AFEF5008A7F81 /* RecordTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71E7B2CB201AFEF5008A7F81 /* RecordTableViewCell.xib */; };
 		71FC9346202090740079F2ED /* SanFranciscoDisplay-Heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = 71FC9331202090740079F2ED /* SanFranciscoDisplay-Heavy.otf */; };
 		71FC9347202090740079F2ED /* SanFranciscoText-RegularItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 71FC9332202090740079F2ED /* SanFranciscoText-RegularItalic.otf */; };
 		71FC9348202090740079F2ED /* SanFranciscoText-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 71FC9333202090740079F2ED /* SanFranciscoText-Regular.otf */; };
@@ -81,8 +79,8 @@
 		719F682120228B300096E35A /* CollectionExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionExtensions.swift; sourceTree = "<group>"; };
 		71B5A47E1FDEEA05001ECE87 /* DAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DAO.swift; sourceTree = "<group>"; };
 		71D37D7C1FC1F39000E1A88C /* UnderlineTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnderlineTextField.swift; sourceTree = "<group>"; };
-		71D37D841FC4BCF200E1A88C /* WordPairTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordPairTableViewCell.swift; sourceTree = "<group>"; };
-		71D37D851FC4BCF200E1A88C /* WordPairTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WordPairTableViewCell.xib; sourceTree = "<group>"; };
+		71D37D841FC4BCF200E1A88C /* VocRecordTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocRecordTableViewCell.swift; sourceTree = "<group>"; };
+		71D37D851FC4BCF200E1A88C /* VocRecordTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VocRecordTableViewCell.xib; sourceTree = "<group>"; };
 		71D37D8A1FC831DD00E1A88C /* ProtoStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtoStyle.swift; sourceTree = "<group>"; };
 		71D37D8C1FC8A89C00E1A88C /* SuggestionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionCollectionViewCell.swift; sourceTree = "<group>"; };
 		71D37D8D1FC8A89C00E1A88C /* SuggestionCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SuggestionCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -96,8 +94,6 @@
 		71E7B2C42018C4C4008A7F81 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		71E7B2C62018C5CE008A7F81 /* Vocabularies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vocabularies.swift; sourceTree = "<group>"; };
 		71E7B2C8201AFE37008A7F81 /* RecordsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordsViewController.swift; sourceTree = "<group>"; };
-		71E7B2CA201AFEF5008A7F81 /* RecordTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordTableViewCell.swift; sourceTree = "<group>"; };
-		71E7B2CB201AFEF5008A7F81 /* RecordTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecordTableViewCell.xib; sourceTree = "<group>"; };
 		71FC9331202090740079F2ED /* SanFranciscoDisplay-Heavy.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SanFranciscoDisplay-Heavy.otf"; sourceTree = "<group>"; };
 		71FC9332202090740079F2ED /* SanFranciscoText-RegularItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SanFranciscoText-RegularItalic.otf"; sourceTree = "<group>"; };
 		71FC9333202090740079F2ED /* SanFranciscoText-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SanFranciscoText-Regular.otf"; sourceTree = "<group>"; };
@@ -179,8 +175,6 @@
 				71585B8C1FD2258400EB979B /* XibView.swift */,
 				71E7B2C42018C4C4008A7F81 /* SettingsTableViewController.swift */,
 				71E7B2C8201AFE37008A7F81 /* RecordsViewController.swift */,
-				71E7B2CA201AFEF5008A7F81 /* RecordTableViewCell.swift */,
-				71E7B2CB201AFEF5008A7F81 /* RecordTableViewCell.xib */,
 			);
 			path = SwipeProto;
 			sourceTree = "<group>";
@@ -191,8 +185,8 @@
 				715A251D1FBF1EE800E6AA91 /* DropDownTableViewCell.swift */,
 				715A251E1FBF1EE800E6AA91 /* DropDownTableViewCell.xib */,
 				71D37D7C1FC1F39000E1A88C /* UnderlineTextField.swift */,
-				71D37D841FC4BCF200E1A88C /* WordPairTableViewCell.swift */,
-				71D37D851FC4BCF200E1A88C /* WordPairTableViewCell.xib */,
+				71D37D841FC4BCF200E1A88C /* VocRecordTableViewCell.swift */,
+				71D37D851FC4BCF200E1A88C /* VocRecordTableViewCell.xib */,
 				71D37D8C1FC8A89C00E1A88C /* SuggestionCollectionViewCell.swift */,
 				71D37D8D1FC8A89C00E1A88C /* SuggestionCollectionViewCell.xib */,
 			);
@@ -337,9 +331,8 @@
 				71FC9347202090740079F2ED /* SanFranciscoText-RegularItalic.otf in Resources */,
 				71E7B2BB201602C4008A7F81 /* es_en_dictionary.sqlite in Resources */,
 				71FC934D202090740079F2ED /* SanFranciscoText-HeavyItalic.otf in Resources */,
-				71E7B2CD201AFEF5008A7F81 /* RecordTableViewCell.xib in Resources */,
 				71FC9358202090740079F2ED /* SanFranciscoText-Light.otf in Resources */,
-				71D37D871FC4BCF200E1A88C /* WordPairTableViewCell.xib in Resources */,
+				71D37D871FC4BCF200E1A88C /* VocRecordTableViewCell.xib in Resources */,
 				71FC9356202090740079F2ED /* SanFranciscoText-Semibold.otf in Resources */,
 				71E7B2BC201602C4008A7F81 /* en_ru_dictionary.sqlite in Resources */,
 				71472DC31F9B4A1200E32FCA /* LaunchScreen.storyboard in Resources */,
@@ -427,7 +420,7 @@
 				719F682220228B300096E35A /* CollectionExtensions.swift in Sources */,
 				71E7B2C72018C5CE008A7F81 /* Vocabularies.swift in Sources */,
 				71585B8D1FD2258400EB979B /* XibView.swift in Sources */,
-				71D37D861FC4BCF200E1A88C /* WordPairTableViewCell.swift in Sources */,
+				71D37D861FC4BCF200E1A88C /* VocRecordTableViewCell.swift in Sources */,
 				715A251F1FBF1EE800E6AA91 /* DropDownTableViewCell.swift in Sources */,
 				71D37D8E1FC8A89C00E1A88C /* SuggestionCollectionViewCell.swift in Sources */,
 				71E7B2C9201AFE37008A7F81 /* RecordsViewController.swift in Sources */,
@@ -437,7 +430,6 @@
 				71B5A47F1FDEEA05001ECE87 /* DAO.swift in Sources */,
 				71D924521FCDD9A800D72CBC /* VocRecord.swift in Sources */,
 				71D37D8B1FC831DD00E1A88C /* ProtoStyle.swift in Sources */,
-				71E7B2CC201AFEF5008A7F81 /* RecordTableViewCell.swift in Sources */,
 				715A25191FBEE45F00E6AA91 /* InputViewController.swift in Sources */,
 				71D37D7D1FC1F39000E1A88C /* UnderlineTextField.swift in Sources */,
 				710DD1FE202201A500A12F0F /* LocalNotifications.swift in Sources */,

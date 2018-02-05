@@ -13,6 +13,7 @@ class SuggestionCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+  
         word.layer.borderWidth = 2.0
         word.layer.cornerRadius = 8.0
         word.layer.borderColor = UIColor.vocSeparator.cgColor

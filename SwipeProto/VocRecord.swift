@@ -13,6 +13,7 @@ struct VocRecord: Codable, Hashable {
   
   var vocabulary: Vocabulary
   var word: String
+  var partOfSpeech: String?
   var trans: String
   var creationDate = Date()
   var srData: StepRepetitionRecord = StepRepetitionRecord()
