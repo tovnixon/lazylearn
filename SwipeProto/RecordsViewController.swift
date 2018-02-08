@@ -7,12 +7,15 @@
 //
 
 import UIKit
+import AVFoundation
 
 class RecordsViewController: UIViewController {
+  
   @IBOutlet weak var tableView: UITableView!
   let searchController = UISearchController(searchResultsController: nil)
   var filteredRecords = [VocRecord]()
   var records = DAO.shared.fetchAllWords()
+  var synthesizer = AVSpeechSynthesizer()
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -33,11 +36,13 @@ class RecordsViewController: UIViewController {
     tableView.register(nib, forCellReuseIdentifier: "VocRecordTableViewCell")
       // Do any additional setup after loading the view.
   }
+  
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
+    records = DAO.shared.fetchAllWords()
     tableView.reloadData()
-    let count = DAO.shared.fetchAllWords().count
-    self.navigationItem.title = "My words (\(count))"
+    
+    self.navigationItem.title = "My words (\(records.count))"
   }
   
   private func searchBarIsEmpty() -> Bool {
@@ -55,6 +60,17 @@ class RecordsViewController: UIViewController {
   }
   private func isFiltering() -> Bool {
     return searchController.isActive && !searchBarIsEmpty()
+  }
+}
+
+extension RecordsViewController: VocRecordTableViewCellDelegate {
+  func pronounce(text: String?) {
+    if let r = text {
+      let utterance = AVSpeechUtterance(string: r)
+      utterance.voice = AVSpeechSynthesisVoice(language: "en")
+      utterance.rate = 0.4
+      synthesizer.speak(utterance)
+    }
   }
 }
 
@@ -82,7 +98,7 @@ extension RecordsViewController: UITableViewDataSource, UITableViewDelegate {
     } else {
       cell.lblPartOfSpeech.text = nil
     }
-    
+    cell.delegate = self
     return cell
   }
 }

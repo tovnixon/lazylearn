@@ -41,32 +41,28 @@ do
     if [[ "$meaning" == *"$trans_sep"* ]]; then
         meaning=""
     fi
-
-    word=$(echo $s | cut -d "{" -f1)
+    
+    word=$(echo ${s%% {*})
     translation=$(echo ${s#*::})
     #remove unused data in translation
+    # ' /' -> [
+    translation=$(echo $translation | sed 's/ \//[/g')
+    # / -> ]
+    translation=$(echo $translation | sed 's/\//]/g')
     #  {} -> []
     translation=$(echo $translation | sed 's/{/[/g')
     translation=$(echo $translation | sed 's/}/]/g')
     # () -> []
     translation=$(echo $translation | sed 's/(/[/g')
     translation=$(echo $translation | sed 's/)/]/g')
-    # remove /transcription/
-    foo=$translation
-    new_translation=""
-    slash_counter=2
-    
-    for (( i=0; i<${#foo}; i++ )); do
-        if [[ ${foo:$i:1} == "/" ]]; then 
-            slash_counter=$((slash_counter+1))            
-        fi
 
-        if [[ `expr $slash_counter % 2` == 0 && ! ${foo:$i:1} == "/" ]]; then 
-            new_translation="$new_translation${foo:$i:1}"    
-        fi
-    done
-    
-    translation=$(echo $new_translation | sed 's/\[[^]]*\]//g')
+        
+    # remove space between words and commmas for [
+    translation=$(echo $translation | sed 's/[  ]*\[/\[/g')
+    # remove all inside []
+    translation=$(echo $translation | sed 's/\[[^]]*\]//g')
+    # trim spaces in the end
+    translation=$(echo ${translation%%*( )})
 
     if [ "$VERBOSE" = true ] ; then
         echo "$s"
@@ -79,7 +75,7 @@ do
     counter=$((counter+1))
     echo -n "."
     sep="|"
-    echo "$word $sep $translation $sep $meaning $sep $partOfSpeech" >> $OUTPUT_FILE
+    echo "$word$sep$translation$sep$meaning$sep$partOfSpeech" >> $OUTPUT_FILE
     
 done < "$INPUT_FILE"
 

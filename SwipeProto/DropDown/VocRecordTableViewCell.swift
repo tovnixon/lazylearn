@@ -8,11 +8,16 @@
 
 import UIKit
 
+protocol VocRecordTableViewCellDelegate: class {
+  func pronounce(text: String?)
+}
+
 class VocRecordTableViewCell: UITableViewCell {
   @IBOutlet weak var lblWord: UILabel!
   @IBOutlet weak var lblTranslation: UILabel!
   @IBOutlet weak var lblPartOfSpeech: UILabel!
   @IBOutlet weak var btnVolume: UIButton!
+  weak var delegate: VocRecordTableViewCellDelegate?
   
   override func awakeFromNib() {
     super.awakeFromNib()
@@ -28,6 +33,6 @@ class VocRecordTableViewCell: UITableViewCell {
   }
 
   @IBAction func voice() {
-    
+    delegate?.pronounce(text: lblWord.text)
   }
 }
