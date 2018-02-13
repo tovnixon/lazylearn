@@ -19,6 +19,7 @@
 		715A251F1FBF1EE800E6AA91 /* DropDownTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715A251D1FBF1EE800E6AA91 /* DropDownTableViewCell.swift */; };
 		715A25201FBF1EE800E6AA91 /* DropDownTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 715A251E1FBF1EE800E6AA91 /* DropDownTableViewCell.xib */; };
 		7161A2E1202D1FA900EFFE77 /* SQLiteDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7161A2E0202D1FA900EFFE77 /* SQLiteDatabase.swift */; };
+		7161A2E320334E4400EFFE77 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7161A2E220334E4400EFFE77 /* Images.xcassets */; };
 		719F682220228B300096E35A /* CollectionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719F682120228B300096E35A /* CollectionExtensions.swift */; };
 		71A60FC5202D024B004344EC /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71A60FC4202D024B004344EC /* Model.swift */; };
 		71B5A47F1FDEEA05001ECE87 /* DAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B5A47E1FDEEA05001ECE87 /* DAO.swift */; };
@@ -79,6 +80,7 @@
 		715A251D1FBF1EE800E6AA91 /* DropDownTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropDownTableViewCell.swift; sourceTree = "<group>"; };
 		715A251E1FBF1EE800E6AA91 /* DropDownTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DropDownTableViewCell.xib; sourceTree = "<group>"; };
 		7161A2E0202D1FA900EFFE77 /* SQLiteDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteDatabase.swift; sourceTree = "<group>"; };
+		7161A2E220334E4400EFFE77 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		719F682120228B300096E35A /* CollectionExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionExtensions.swift; sourceTree = "<group>"; };
 		71A60FC4202D024B004344EC /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		71B5A47E1FDEEA05001ECE87 /* DAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DAO.swift; sourceTree = "<group>"; };
@@ -179,6 +181,7 @@
 				71585B8C1FD2258400EB979B /* XibView.swift */,
 				71E7B2C42018C4C4008A7F81 /* SettingsTableViewController.swift */,
 				71E7B2C8201AFE37008A7F81 /* RecordsViewController.swift */,
+				7161A2E220334E4400EFFE77 /* Images.xcassets */,
 			);
 			path = SwipeProto;
 			sourceTree = "<group>";
@@ -336,6 +339,7 @@
 				71E7B2BD201602C4008A7F81 /* de_en_dictionary.sqlite in Resources */,
 				71FC9347202090740079F2ED /* SanFranciscoText-RegularItalic.otf in Resources */,
 				71E7B2BB201602C4008A7F81 /* es_en_dictionary.sqlite in Resources */,
+				7161A2E320334E4400EFFE77 /* Images.xcassets in Resources */,
 				71FC934D202090740079F2ED /* SanFranciscoText-HeavyItalic.otf in Resources */,
 				71FC9358202090740079F2ED /* SanFranciscoText-Light.otf in Resources */,
 				71D37D871FC4BCF200E1A88C /* VocRecordTableViewCell.xib in Resources */,
@@ -517,7 +521,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -568,7 +572,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -581,12 +585,13 @@
 			baseConfigurationReference = 40949031CCBBC7ABA310EC3B /* Pods-SwipeProto.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = K835YM3DHM;
 				INFOPLIST_FILE = SwipeProto/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.tovnixon.SwipeProto;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tovnixon.lazylearn;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
@@ -601,12 +606,13 @@
 			baseConfigurationReference = 4D82BB05DFE9C28AD60B3C99 /* Pods-SwipeProto.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = K835YM3DHM;
 				INFOPLIST_FILE = SwipeProto/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.tovnixon.SwipeProto;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tovnixon.lazylearn;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "";

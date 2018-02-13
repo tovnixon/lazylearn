@@ -14,7 +14,7 @@ class RecordsViewController: UIViewController {
   @IBOutlet weak var tableView: UITableView!
   let searchController = UISearchController(searchResultsController: nil)
   var filteredRecords = [VocRecord]()
-  var records = DAO.shared.fetchAllWords()
+  var records = [VocRecord]()
   var synthesizer = AVSpeechSynthesizer()
   
   override func viewDidLoad() {
@@ -46,7 +46,7 @@ class RecordsViewController: UIViewController {
   
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
-    records = DAO.shared.fetchAllWords()
+    records = DAO.shared.recordsSortedByCreationDate()
     tableView.reloadData()
     
     self.navigationItem.title = "My words (\(records.count))"

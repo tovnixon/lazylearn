@@ -46,7 +46,7 @@ UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFl
     super.viewDidLoad()
   NotificationCenter.default.addObserver(self,selector:#selector(keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
     _ = dbProvider.openDataBase()
-    
+    btnNext.isEnabled = false
     lblPartOfSpeech.text = nil
     btnVoice.isHidden = true
     navigationItem.title = DAO.shared.currentVocabulary.title()
@@ -56,7 +56,6 @@ UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFl
     ]
     
     navigationController?.navigationBar.titleTextAttributes = attrs
-    // !!! Das ist gut!
     view.backgroundColor = UIColor.vocBackground
     
     cnstrNextHeight.constant = 50
@@ -143,21 +142,22 @@ UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFl
   
   func reloadTableViewTrans() {
     collectionView.reloadData()
-    let defaultCellHeight = suggestionCellHeight(for: suggestionsTrans.count)
+
+    let suggestionsCount = filterSuggestionsTrans(by: txtTrans.text).count
+    let defaultCellHeight = suggestionCellHeight(for: suggestionsCount)
     
     var h: CGFloat = 3 * defaultCellHeight
     
-    if suggestionsTrans.count == 0 {
+    if suggestionsCount == 0 {
       h = 0
-    } else if suggestionsTrans.count <= 2 {
+    } else if suggestionsCount <= 2 {
       h = defaultCellHeight
-    } else if suggestionsTrans.count <= 4 {
+    } else if suggestionsCount <= 4 {
       h = 2 * defaultCellHeight
     }
 
     collectionView.frame = CGRect(x: collectionView.frame.origin.x, y: collectionView.frame.origin.y, width: collectionView.frame.size.width, height:h)
     self.txtTrans.reloadInputViews()
-
   }
   
   func suggestionCellHeight(for amount: Int) -> CGFloat {
@@ -282,6 +282,7 @@ UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFl
 
   @IBAction func settings() {
     let menu = UIAlertController(title: "Pick vocabulary", message: nil, preferredStyle: .actionSheet)
+    menu.view.tintColor = UIColor.vocAction
     let one = UIAlertAction(title: Vocabulary.en_ru_Vocabulary.title(), style: .default) { action in  self.vocabularyChanged(newVoc: Vocabulary.en_ru_Vocabulary)}
     menu.addAction(one)
     let two = UIAlertAction(title: Vocabulary.es_en_Vocabulary.title(), style: .default) { action in self.vocabularyChanged(newVoc: Vocabulary.es_en_Vocabulary)}
@@ -298,7 +299,7 @@ UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFl
       DAO.shared.currentVocabulary = newVoc
       DAO.shared.saveOnDisk()
       dbProvider.dbName = Vocabulary.databaseName(sourceLang: newVoc.sourceLang, translationLang: newVoc.translationLang)
-      dbProvider.closeDataBase()
+      _ = dbProvider.closeDataBase()
       _ = dbProvider.openDataBase()
       txtInput.forceLanguageCode = DAO.shared.currentVocabulary.sourceLang.code.rawValue
       txtTrans.forceLanguageCode = DAO.shared.currentVocabulary.translationLang.code.rawValue
@@ -306,6 +307,13 @@ UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFl
       txtInput.becomeFirstResponder()
       navigationItem.title = newVoc.title()
     }
+  }
+  
+  func filterSuggestionsTrans(by text: String?) -> [String] {
+    if let text = text {
+      if text.count > 0 { return suggestionsTrans.filter {$0.contains(text)} }
+    }
+    return suggestionsTrans
   }
   
   @IBAction func textEditingChanged(sender: UITextField) {
@@ -329,7 +337,7 @@ UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFl
         }
       }
       self.reloadTableView()
-    } else {
+    } else if sender == txtTrans {
       if let text = sender.text {
         if text.count == 0 {
           txtTrans.solidUnderline = false
@@ -386,15 +394,27 @@ UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFl
       (textField as! UnderlineTextField).solidUnderline = text.count != 0
     }
   }
+  
+  func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+    let isBackspase = string.count == 0
+    if isBackspase {
+      print("Backspace pressed")
+    }
+    if textField == txtTrans {
+      if textField.text?.count == 1  && isBackspase {
+        print("to zero")
+      }
+    }
+    return true
+  }
 
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     if txtInput.isFirstResponder {
         return suggestions.count
     } else if txtTrans.isFirstResponder {
-      return suggestionsTrans.count
+      return filterSuggestionsTrans(by: txtTrans.text).count
     }
     return 0
-
   }
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
@@ -402,10 +422,10 @@ UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFl
     let cellId = "suggestionCell"
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath as IndexPath) as! SuggestionCollectionViewCell
     if txtInput.isFirstResponder {
-      cell.word.text = suggestions[indexPath.row].word//.trimmingCharacters(in: .whitespacesAndNewlines)
+      cell.word.text = suggestions[indexPath.row].word
       cell.word.textColor = UIColor.vocInputText
     } else if txtTrans.isFirstResponder {
-      cell.word.text = suggestionsTrans[indexPath.row]//.trimmingCharacters(in: .whitespacesAndNewlines)
+      cell.word.text = filterSuggestionsTrans(by: txtTrans.text)[indexPath.row]
       cell.word.textColor = UIColor.vocTranslationText
     }
     cell.backgroundColor = .clear
@@ -424,8 +444,8 @@ UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFl
         proceedToNextState()
       }
     } else if txtTrans.isFirstResponder {
-      if let trans = suggestionsTrans[safe: indexPath.row] {
-        txtTrans.text = trans//.trimmingCharacters(in: .whitespacesAndNewlines)
+      if let trans = filterSuggestionsTrans(by: txtTrans.text)[safe: indexPath.row] {
+        txtTrans.text = trans
         proceedToNextState()
       }
     }
@@ -434,7 +454,7 @@ UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFl
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize  {
     var cellsCount = txtInput.isFirstResponder ? suggestions.count : 0
     if txtTrans.isFirstResponder {
-      cellsCount = suggestionsTrans.count
+      cellsCount = filterSuggestionsTrans(by: txtTrans.text).count
     }
     
     let width = collectionView.bounds.size.width

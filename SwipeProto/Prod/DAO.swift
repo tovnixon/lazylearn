@@ -69,7 +69,14 @@ class DAO {
     }
     return [VocRecord]()
   }
-  
+
+  func recordsSortedByCreationDate() -> [VocRecord] {
+    if let all = db?.recordsSortedByCreationDate() {
+      return all.map {VocRecord(r: $0) }
+    }
+    return [VocRecord]()
+  }
+
   func availableToLearnRecordsCount() -> Int32 {
     do {
       if let c = try db?.availableToLearnRecords() {

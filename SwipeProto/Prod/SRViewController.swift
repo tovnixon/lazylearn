@@ -24,8 +24,8 @@ class SRViewController: UIViewController {
   @IBOutlet weak var btnTrain: StagedButton!
   @IBOutlet weak var lblNoData: UILabel!
   @IBOutlet weak var wordsView: UIView!
-  @IBOutlet weak var lblWord: UILabel!
-  @IBOutlet weak var lblTrans: UILabel!
+  @IBOutlet weak var lblWord: UnderlineLabel!
+  @IBOutlet weak var lblTrans: UnderlineLabel!
   @IBOutlet weak var lblHowWasIt: UILabel!
   @IBOutlet weak var btnTranslate: UIButton!
   @IBOutlet weak var btnVoice: UIButton!
@@ -81,10 +81,9 @@ class SRViewController: UIViewController {
       NSAttributedStringKey.font: UIFont.vocHeaders
     ]
     navigationController?.navigationBar.titleTextAttributes = attrs
-    
+    view.backgroundColor = UIColor.vocBackground
     lblNoData.font = UIFont.vocHeaders
     btnTrain.titleLabel?.font = UIFont.vocHeaders
-    view.backgroundColor = UIColor.lightGray
     wordsView.layer.cornerRadius = 20.0
     
     btnVoice.isHidden = true

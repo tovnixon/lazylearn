@@ -20,6 +20,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     UITabBar.appearance().tintColor = UIColor.vocAction
     UITextField.appearance().tintColor = UIColor.vocAction
     UINavigationBar.appearance().barTintColor = UIColor(0xe8e8e9)
+    UIButton.appearance().tintColor = UIColor.vocAction
+    UISegmentedControl.appearance().tintColor = UIColor.vocAction
+    
     _ = DAO.shared
     return true
   }

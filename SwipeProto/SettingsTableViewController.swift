@@ -22,7 +22,9 @@ class SettingsTableViewController: UITableViewController {
       NSAttributedStringKey.font: UIFont.vocHeaders
     ]
     navigationController?.navigationBar.titleTextAttributes = attrs
-    repetitionStep.selectedSegmentIndex = DAO.shared.repetitionStep.index()
+    //repetitionStep.selectedSegmentIndex = DAO.shared.repetitionStep.index()
+    notificationsSection.contentView.backgroundColor = UIColor.vocBackground
+    tableView.backgroundColor = UIColor.vocBackground
   }
   
   override func viewWillLayoutSubviews() {

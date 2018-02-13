@@ -188,7 +188,22 @@ extension SQLiteDatabase {
     }
     return record
   }
-  
+
+  func recordsSortedByCreationDate() -> [VocRecordSQL] {
+    guard let queryStatement = try? prepareStatement(sql: "SELECT * FROM records ORDER BY creationDate DESC") else {
+      return [VocRecordSQL]()
+    }
+    defer {
+      sqlite3_finalize(queryStatement)
+    }
+    var records = [VocRecordSQL]()
+    while sqlite3_step(queryStatement) == SQLITE_ROW {
+      let r = record(queryStatement)
+      records.append(r)
+    }
+    return records
+  }
+
   func recordsSortedByProposalDate() -> [VocRecordSQL] {
     guard let queryStatement = try? prepareStatement(sql: "SELECT * FROM records WHERE neverLearned = 0 ORDER BY nextDisplayDate ASC") else {
       return [VocRecordSQL]()
