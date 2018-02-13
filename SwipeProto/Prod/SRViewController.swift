@@ -21,9 +21,8 @@ class SRViewController: UIViewController {
   var index: Int = 0
   var forceTrainingMode = false
   
-  @IBOutlet weak var btnTrain: UIButton!
+  @IBOutlet weak var btnTrain: StagedButton!
   @IBOutlet weak var lblNoData: UILabel!
-  @IBOutlet weak var lblTitle: UILabel!
   @IBOutlet weak var wordsView: UIView!
   @IBOutlet weak var lblWord: UILabel!
   @IBOutlet weak var lblTrans: UILabel!
@@ -33,7 +32,7 @@ class SRViewController: UIViewController {
   @IBOutlet weak var gradeView: UIStackView!
   @IBOutlet weak var cnstrWordTop: NSLayoutConstraint!
   @IBOutlet weak var cnstrTransTop: NSLayoutConstraint!
-  @IBOutlet var gradeButtons: [UIButton]!
+  @IBOutlet var gradeButtons: [StagedButton]!
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -77,44 +76,42 @@ class SRViewController: UIViewController {
   }
   
   func setupUI() {
-    lblTitle.textColor = UIColor.vocInputText
-    lblTitle.font = UIFont.vocHeaders
-
+    let attrs = [
+      NSAttributedStringKey.foregroundColor: UIColor.vocPlainText,
+      NSAttributedStringKey.font: UIFont.vocHeaders
+    ]
+    navigationController?.navigationBar.titleTextAttributes = attrs
+    
+    lblNoData.font = UIFont.vocHeaders
+    btnTrain.titleLabel?.font = UIFont.vocHeaders
     view.backgroundColor = UIColor.lightGray
     wordsView.layer.cornerRadius = 20.0
-    btnTranslate.layer.cornerRadius = 10.0
-    btnTranslate.backgroundColor = UIColor.vocAction
-    btnTranslate.setTitleColor(.white, for: .normal)
+    
     btnVoice.isHidden = true
     lblTrans.isHidden = true
     gradeView.isHidden = true
     lblHowWasIt.isHidden = true
+    lblHowWasIt.textColor = UIColor.vocPlainText
+    lblHowWasIt.font = UIFont.vocHeaders
     lblWord.textColor = UIColor.vocInputText
     lblTrans.textColor = UIColor.vocTranslationText
     lblWord.font = UIFont.vocTitles
     lblTrans.font = UIFont.vocTitles
     
-    let colorScheme = [UIColor.init(red: 0.067, green: 0.467, blue: 0.722, alpha: 1.0),
-                       UIColor.init(red: 0.110, green: 0.643, blue: 0.988, alpha: 1.0),
-                       UIColor.init(red: 0.361, green: 0.371, blue: 0.988, alpha: 1.0),
-//                       UIColor.init(red: 0.969, green: 0.725, blue: 0.169, alpha: 1.0),
-                       UIColor.init(red: 0.992, green: 0.576, blue: 0.149, alpha: 1.0)]
-    
+    let colorScheme = [UIColor(0xfc3d39), UIColor.vocInputText, UIColor.vocTranslationText, UIColor(0xd55f1b)]
     var i = 0
     for button in gradeButtons {
-      button.layer.cornerRadius = 6.0
-      button.setTitleColor(.white, for: .normal)
-      button.titleLabel?.font = UIFont.vocHeaders
-      button.backgroundColor = colorScheme[safe: i]
+      button.titleLabel?.font = UIFont.vocSmalTitles
+      button.color = colorScheme[safe: i]!
       i += 1
     }
   }
   
   func getNextCard() {
     if let r = records[safe: index] {
-      if (r.shouldBeProposedNow() || forceTrainingMode) && r.trans.count > 0 && r.word.count > 0 {
+      if (r.shouldBeProposedNow() || forceTrainingMode) && r.trans.spelling.count > 0 && r.word.spelling.count > 0 {
         record = r
-        lblWord.text = record!.trans
+        lblWord.text = record!.trans.spelling
       } else {
         index += 1
         getNextCard()
@@ -139,13 +136,13 @@ class SRViewController: UIViewController {
     lblTrans.isHidden = false
     voice()
     if let r = record {
-      lblTrans.text = r.word
+      lblTrans.text = r.word.spelling
     }
   }
   
   @IBAction func voice() {
     if let r = record {
-      let utterance = AVSpeechUtterance(string: record!.word)
+      let utterance = AVSpeechUtterance(string: record!.word.spelling)
       utterance.voice = AVSpeechSynthesisVoice(language: r.vocabulary.sourceLang.code.rawValue)
       utterance.rate = 0.4
       synthesizer.speak(utterance)

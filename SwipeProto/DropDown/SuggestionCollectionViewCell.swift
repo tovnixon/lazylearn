@@ -14,10 +14,10 @@ class SuggestionCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
         // Initialization code
   
-        word.layer.borderWidth = 2.0
+        word.layer.borderWidth = 1.0
         word.layer.cornerRadius = 8.0
-        word.layer.borderColor = UIColor.vocSeparator.cgColor
-        
+        word.layer.borderColor = UIColor.vocAction.cgColor
+//        word.textColor = UIColor.vocInputText //UIColor(0x4f555c)
     }
 
 }

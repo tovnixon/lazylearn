@@ -7,6 +7,39 @@
 //
 
 import UIKit
+
+class StagedButton: UIButton {
+  
+  required init?(coder aDecoder: NSCoder) {
+    super.init(coder: aDecoder)
+    layer.cornerRadius = 10.0
+    backgroundColor = .clear
+    layer.borderWidth = 2.0
+    layer.borderColor = UIColor.vocAction.cgColor
+    setTitleColor(UIColor.vocAction, for: .normal)
+    titleLabel?.font = UIFont.vocInputText
+  }
+  
+  var color: UIColor = UIColor.blue {
+    didSet {
+      layer.borderColor = color.cgColor
+      setTitleColor(color, for: .normal)
+    }
+  }
+  
+  override var isEnabled: Bool {
+    didSet {
+      if isEnabled {
+        layer.borderColor = UIColor.vocAction.cgColor
+        setTitleColor(UIColor.vocAction, for: .normal)
+      } else {
+        layer.borderColor = UIColor.vocInputPlaceholder.cgColor
+        setTitleColor(UIColor.vocInputPlaceholder, for: .normal)
+      }
+    }
+  }
+}
+
 class UnderlineTextField: UITextField {
   public var forceLanguageCode = ""
   public var solidUnderline: Bool = false {
@@ -38,9 +71,9 @@ class UnderlineTextField: UITextField {
     
     path.move(to: startingPoint)
     path.addLine(to: endingPoint)
-    path.lineWidth = 4.0
+    path.lineWidth = 1.0
     
-    UIColor.vocSeparator.setStroke()
+    UIColor.vocInputPlaceholder.setStroke()
     if !solidUnderline {
       let pattern: [CGFloat] = [16.0, 8.0]
       path.setLineDash(pattern, count: 2, phase: 0)

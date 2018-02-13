@@ -18,12 +18,11 @@ UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFl
     case inputConfirm
   }
 
-  @IBOutlet weak var lblTitle: UILabel!
   @IBOutlet weak var lblPartOfSpeech: UILabel!
   @IBOutlet weak var txtInput: UnderlineTextField!
   @IBOutlet weak var txtTrans: UnderlineTextField!
-  @IBOutlet weak var cnstrWordTop: NSLayoutConstraint!
-  @IBOutlet weak var btnNext: UIButton!
+  @IBOutlet weak var cnstrNextBottom: NSLayoutConstraint!
+  @IBOutlet weak var btnNext: StagedButton!
   @IBOutlet weak var btnVoice: UIButton!
   @IBOutlet weak var cnstrNextHeight: NSLayoutConstraint!
   
@@ -35,7 +34,8 @@ UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFl
   var suggestions = [SQLRecord]()
   var suggestionsTrans = [String]()
   var currentWord: SQLRecord?
-  let dbProvider = SQLiteManager(name: DAO.shared.currentVocabulary.database)
+  
+  let dbProvider = SQLiteManager(name: Vocabulary.databaseName(sourceLang: DAO.shared.currentVocabulary.sourceLang, translationLang: DAO.shared.currentVocabulary.translationLang))
   
   let myTextInputMode = UITextInputMode()
   var myInputViewController = UIInputViewController()
@@ -44,14 +44,21 @@ UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFl
   
   override func viewDidLoad() {
     super.viewDidLoad()
+  NotificationCenter.default.addObserver(self,selector:#selector(keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
     _ = dbProvider.openDataBase()
     
     lblPartOfSpeech.text = nil
     btnVoice.isHidden = true
-    lblTitle.textColor = UIColor.vocInputText
-    lblTitle.font = UIFont.vocHeaders
-    lblTitle.text = DAO.shared.currentVocabulary.title()
-    btnNext.layer.cornerRadius = 10.0
+    navigationItem.title = DAO.shared.currentVocabulary.title()
+    let attrs = [
+      NSAttributedStringKey.foregroundColor: UIColor.vocPlainText,
+      NSAttributedStringKey.font: UIFont.vocHeaders
+    ]
+    
+    navigationController?.navigationBar.titleTextAttributes = attrs
+    // !!! Das ist gut!
+    view.backgroundColor = UIColor.vocBackground
+    
     cnstrNextHeight.constant = 50
     
     txtInput.text = ""
@@ -67,7 +74,7 @@ UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFl
     txtTrans.text = ""
     txtTrans.forceLanguageCode = DAO.shared.currentVocabulary.translationLang.code.rawValue
     txtTrans.textColor = UIColor.vocTranslationText
-    txtTrans.attributedPlaceholder = NSAttributedString(string: "translation", attributes:[NSAttributedStringKey.foregroundColor : UIColor.vocTranslationPlaceholder])
+    txtTrans.attributedPlaceholder = NSAttributedString(string: "translation", attributes:[NSAttributedStringKey.foregroundColor : UIColor.vocInputPlaceholder])
     
     txtTrans.backgroundColor = .clear
     txtTrans.placeholder = "translation"
@@ -81,7 +88,7 @@ UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFl
     collectionView.dataSource = self
     
     collectionView.isScrollEnabled = false
-    collectionView.backgroundColor = .lightGray
+    collectionView.backgroundColor = UIColor(0xeceef1)
     
     let nibName3 = UINib(nibName: "SuggestionCollectionViewCell", bundle: nil)
     collectionView.register(nibName3, forCellWithReuseIdentifier: "suggestionCell")
@@ -94,6 +101,17 @@ UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFl
     self.reloadTableViewTrans()
   }
   
+  @objc func keyboardWillShow(notification: Notification) {
+    NotificationCenter.default.removeObserver(self, name: notification.name, object: nil)
+    
+    let userInfo:NSDictionary = notification.userInfo! as NSDictionary
+    let keyboardFrame:NSValue = userInfo.value(forKey: UIKeyboardFrameEndUserInfoKey) as! NSValue
+    let keyboardRectangle = keyboardFrame.cgRectValue
+    let keyboardHeight = keyboardRectangle.height
+    cnstrNextBottom.constant = keyboardHeight - (self.tabBarController?.tabBar.frame.size.height)! + 10
+    self.view.layoutIfNeeded()
+    // do whatever you want with this keyboard height
+  }
   @IBAction func tapRecognizer(tapRecognizer: UITapGestureRecognizer) {
     suggestions.removeAll()
     suggestionsTrans.removeAll()
@@ -128,6 +146,7 @@ UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFl
     let defaultCellHeight = suggestionCellHeight(for: suggestionsTrans.count)
     
     var h: CGFloat = 3 * defaultCellHeight
+    
     if suggestionsTrans.count == 0 {
       h = 0
     } else if suggestionsTrans.count <= 2 {
@@ -143,7 +162,7 @@ UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFl
   
   func suggestionCellHeight(for amount: Int) -> CGFloat {
     switch amount {
-    case 1...2: return 120
+    case 1...2: return 60
     case 3...4: return 60
     default: return 40
     }
@@ -209,7 +228,7 @@ UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFl
         check.removeFromSuperview()
       })
  //     cnstrWordTop.constant = 20.0 //120
-      cnstrNextHeight.constant = 50
+    //  cnstrNextHeight.constant = 50
       UIView.animate(withDuration: 0.1, animations: {
         self.view.layoutIfNeeded()
         self.txtTrans.alpha = 0
@@ -218,7 +237,10 @@ UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFl
 
       }, completion: { [unowned self] (completed) in
         var r = VocRecord(self.txtInput.text!, trans: self.txtTrans.text!, vocabulary: DAO.shared.currentVocabulary)
-        r.partOfSpeech = self.currentWord?.partOfSpeech
+        if let partOfSpeech = self.currentWord?.partOfSpeech {
+          r.word.partOfSpeech = partOfSpeech
+        }
+        
         DAO.shared.insert(r)
         
         self.txtInput.text = nil
@@ -233,6 +255,7 @@ UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFl
         self.reloadTableView()
         self.inputValue = ""
         self.translationValue = ""
+        self.btnNext.isEnabled = false
         self.currentWord = nil
         self.lblPartOfSpeech.text = nil
         self.inputState = .inputWord
@@ -245,7 +268,7 @@ UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFl
       self.suggestionsTrans.removeAll()
       self.reloadTableViewTrans()
       txtTrans.solidUnderline = true
-      cnstrNextHeight.constant = cnstrNextHeight.constant * 1.2
+      //cnstrNextHeight.constant = cnstrNextHeight.constant * 1.2
       UIView.animate(withDuration: 0.2, animations: {
         self.btnNext.setTitle("Confirm", for: .normal)
         self.view.layoutIfNeeded()
@@ -273,22 +296,28 @@ UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFl
     if newVoc.title() != DAO.shared.currentVocabulary.title() {
       _ = dbProvider.closeDataBase()
       DAO.shared.currentVocabulary = newVoc
-      dbProvider.dbName = newVoc.database
+      DAO.shared.saveOnDisk()
+      dbProvider.dbName = Vocabulary.databaseName(sourceLang: newVoc.sourceLang, translationLang: newVoc.translationLang)
+      dbProvider.closeDataBase()
       _ = dbProvider.openDataBase()
       txtInput.forceLanguageCode = DAO.shared.currentVocabulary.sourceLang.code.rawValue
       txtTrans.forceLanguageCode = DAO.shared.currentVocabulary.translationLang.code.rawValue
-    
-      lblTitle.text = newVoc.title()
+      txtInput.resignFirstResponder()
+      txtInput.becomeFirstResponder()
+      navigationItem.title = newVoc.title()
     }
   }
   
   @IBAction func textEditingChanged(sender: UITextField) {
     if sender === txtInput {
+      
       if let text = sender.text {
+        btnNext.isEnabled = true
         if currentWord?.word != text {
           lblPartOfSpeech.text = nil
         }
         if text.count == 0 {
+          btnNext.isEnabled = false
           txtInput.solidUnderline = false
           btnVoice.isHidden = true
         }
@@ -374,8 +403,10 @@ UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFl
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath as IndexPath) as! SuggestionCollectionViewCell
     if txtInput.isFirstResponder {
       cell.word.text = suggestions[indexPath.row].word//.trimmingCharacters(in: .whitespacesAndNewlines)
+      cell.word.textColor = UIColor.vocInputText
     } else if txtTrans.isFirstResponder {
       cell.word.text = suggestionsTrans[indexPath.row]//.trimmingCharacters(in: .whitespacesAndNewlines)
+      cell.word.textColor = UIColor.vocTranslationText
     }
     cell.backgroundColor = .clear
     cell.contentView.backgroundColor = .clear

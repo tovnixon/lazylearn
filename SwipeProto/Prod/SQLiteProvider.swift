@@ -30,7 +30,7 @@ class SQLiteManager {
     }
     return true
   }
-  
+
   func closeDataBase() -> Bool {
     let result = sqlite3_close(db)
     db = nil
@@ -68,7 +68,7 @@ class SQLiteManager {
     
     let start = Date()
     
-    let queryString = "SELECT * FROM dictionary WHERE word LIKE '\(text)%' GROUP BY (word)"
+    let queryString = "SELECT * FROM dictionary WHERE word LIKE '\(text)%' GROUP BY word"
     var stmp: OpaquePointer?
     if sqlite3_prepare(db, queryString, -1, &stmp, nil) != SQLITE_OK {
       let error = String(cString: sqlite3_errmsg(db)!)

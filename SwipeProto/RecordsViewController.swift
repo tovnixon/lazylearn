@@ -19,6 +19,7 @@ class RecordsViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    tableView.backgroundColor = UIColor.vocBackground
     // Setup the Search Controller
     searchController.searchResultsUpdater = self
     searchController.obscuresBackgroundDuringPresentation = false
@@ -32,6 +33,12 @@ class RecordsViewController: UIViewController {
     definesPresentationContext = true
     
     self.navigationItem.title = "My words"
+    let attrs = [
+      NSAttributedStringKey.foregroundColor: UIColor.vocPlainText,
+      NSAttributedStringKey.font: UIFont.vocHeaders
+    ]
+    navigationController?.navigationBar.titleTextAttributes = attrs
+
     let nib = UINib(nibName: "VocRecordTableViewCell", bundle: nil)
     tableView.register(nib, forCellReuseIdentifier: "VocRecordTableViewCell")
       // Do any additional setup after loading the view.
@@ -52,8 +59,8 @@ class RecordsViewController: UIViewController {
   
   private func filterContentForSearchText(_ searchText: String, scope: String = "All") {
     filteredRecords = records.filter({( record : VocRecord) -> Bool in
-      return record.word.lowercased().contains(searchText.lowercased()) ||
-             record.trans.lowercased().contains(searchText.lowercased())
+      return record.word.spelling.lowercased().contains(searchText.lowercased()) ||
+             record.trans.spelling.lowercased().contains(searchText.lowercased())
     })
     
     tableView.reloadData()
@@ -91,10 +98,14 @@ extension RecordsViewController: UITableViewDataSource, UITableViewDelegate {
     } else {
       r = records[indexPath.row]
     }
-    cell.lblWord.text = r.word
-    cell.lblTranslation.text = r.trans
-    if let partOfSppech = r.partOfSpeech {
-      cell.lblPartOfSpeech.text = "(" + partOfSppech + ")"
+    cell.lblWord.text = r.word.spelling
+    cell.lblTranslation.text = r.trans.spelling
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "EEE d.M"
+    
+    cell.lblNextDisplay.text = dateFormatter.string(from: r.nextDisplayDate)
+    if r.word.partOfSpeech.count > 0 {
+      cell.lblPartOfSpeech.text = "(" + r.word.partOfSpeech + ")"
     } else {
       cell.lblPartOfSpeech.text = nil
     }

@@ -18,7 +18,9 @@
 		715A25191FBEE45F00E6AA91 /* InputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715A25181FBEE45F00E6AA91 /* InputViewController.swift */; };
 		715A251F1FBF1EE800E6AA91 /* DropDownTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715A251D1FBF1EE800E6AA91 /* DropDownTableViewCell.swift */; };
 		715A25201FBF1EE800E6AA91 /* DropDownTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 715A251E1FBF1EE800E6AA91 /* DropDownTableViewCell.xib */; };
+		7161A2E1202D1FA900EFFE77 /* SQLiteDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7161A2E0202D1FA900EFFE77 /* SQLiteDatabase.swift */; };
 		719F682220228B300096E35A /* CollectionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719F682120228B300096E35A /* CollectionExtensions.swift */; };
+		71A60FC5202D024B004344EC /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71A60FC4202D024B004344EC /* Model.swift */; };
 		71B5A47F1FDEEA05001ECE87 /* DAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B5A47E1FDEEA05001ECE87 /* DAO.swift */; };
 		71D37D7D1FC1F39000E1A88C /* UnderlineTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D37D7C1FC1F39000E1A88C /* UnderlineTextField.swift */; };
 		71D37D861FC4BCF200E1A88C /* VocRecordTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D37D841FC4BCF200E1A88C /* VocRecordTableViewCell.swift */; };
@@ -76,7 +78,9 @@
 		715A25181FBEE45F00E6AA91 /* InputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputViewController.swift; sourceTree = "<group>"; };
 		715A251D1FBF1EE800E6AA91 /* DropDownTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropDownTableViewCell.swift; sourceTree = "<group>"; };
 		715A251E1FBF1EE800E6AA91 /* DropDownTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DropDownTableViewCell.xib; sourceTree = "<group>"; };
+		7161A2E0202D1FA900EFFE77 /* SQLiteDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteDatabase.swift; sourceTree = "<group>"; };
 		719F682120228B300096E35A /* CollectionExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionExtensions.swift; sourceTree = "<group>"; };
+		71A60FC4202D024B004344EC /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		71B5A47E1FDEEA05001ECE87 /* DAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DAO.swift; sourceTree = "<group>"; };
 		71D37D7C1FC1F39000E1A88C /* UnderlineTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnderlineTextField.swift; sourceTree = "<group>"; };
 		71D37D841FC4BCF200E1A88C /* VocRecordTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocRecordTableViewCell.swift; sourceTree = "<group>"; };
@@ -204,6 +208,8 @@
 				710DD1FD202201A500A12F0F /* LocalNotifications.swift */,
 				710DD1FF202210E400A12F0F /* TabBarViewController.swift */,
 				719F682120228B300096E35A /* CollectionExtensions.swift */,
+				71A60FC4202D024B004344EC /* Model.swift */,
+				7161A2E0202D1FA900EFFE77 /* SQLiteDatabase.swift */,
 			);
 			path = Prod;
 			sourceTree = "<group>";
@@ -416,6 +422,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				71A60FC5202D024B004344EC /* Model.swift in Sources */,
 				71E7B2B62014D8C4008A7F81 /* SQLiteProvider.swift in Sources */,
 				719F682220228B300096E35A /* CollectionExtensions.swift in Sources */,
 				71E7B2C72018C5CE008A7F81 /* Vocabularies.swift in Sources */,
@@ -423,6 +430,7 @@
 				71D37D861FC4BCF200E1A88C /* VocRecordTableViewCell.swift in Sources */,
 				715A251F1FBF1EE800E6AA91 /* DropDownTableViewCell.swift in Sources */,
 				71D37D8E1FC8A89C00E1A88C /* SuggestionCollectionViewCell.swift in Sources */,
+				7161A2E1202D1FA900EFFE77 /* SQLiteDatabase.swift in Sources */,
 				71E7B2C9201AFE37008A7F81 /* RecordsViewController.swift in Sources */,
 				71E7B2C120175FBC008A7F81 /* SRViewController.swift in Sources */,
 				710DD200202210E400A12F0F /* TabBarViewController.swift in Sources */,

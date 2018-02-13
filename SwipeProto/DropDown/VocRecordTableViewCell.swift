@@ -16,6 +16,7 @@ class VocRecordTableViewCell: UITableViewCell {
   @IBOutlet weak var lblWord: UILabel!
   @IBOutlet weak var lblTranslation: UILabel!
   @IBOutlet weak var lblPartOfSpeech: UILabel!
+  @IBOutlet weak var lblNextDisplay: UILabel!
   @IBOutlet weak var btnVolume: UIButton!
   weak var delegate: VocRecordTableViewCellDelegate?
   
@@ -23,6 +24,12 @@ class VocRecordTableViewCell: UITableViewCell {
     super.awakeFromNib()
     lblWord.textColor = UIColor.vocInputText
     lblTranslation.textColor = UIColor.vocTranslationText
+    lblWord.font = UIFont.vocTableCellText
+    lblTranslation.font = UIFont.vocTableCellText
+    lblPartOfSpeech.textColor = UIColor.vocPlainText
+    lblNextDisplay.textColor = UIColor.vocPlainText
+    contentView.backgroundColor = UIColor.vocBackground
+    self.backgroundColor = UIColor.vocBackground
       // Initialization code
   }
 

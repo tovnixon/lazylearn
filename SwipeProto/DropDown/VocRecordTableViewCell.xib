@@ -28,13 +28,13 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="80.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KWP-KG-bS4" userLabel="Word">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="KWP-KG-bS4" userLabel="Word">
                         <rect key="frame" x="12" y="8" width="41" height="20"/>
                         <fontDescription key="fontDescription" name="SanFranciscoDisplay-Semibold" family="San Francisco Display" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YQu-xG-XKY" userLabel="Translation">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="YQu-xG-XKY" userLabel="Translation">
                         <rect key="frame" x="12" y="52.5" width="41" height="20"/>
                         <fontDescription key="fontDescription" name="SanFranciscoDisplay-Semibold" family="San Francisco Display" pointSize="17"/>
                         <nil key="textColor"/>
@@ -57,18 +57,26 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" alpha="0.80000001192092896" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1W1-TL-q1a" userLabel="NextdisplayDate">
+                        <rect key="frame" x="238.5" y="57" width="24.5" height="14"/>
+                        <fontDescription key="fontDescription" name="SanFranciscoDisplay-Ultralight" family="San Francisco Display" pointSize="11"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="1W1-TL-q1a" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="YQu-xG-XKY" secondAttribute="trailing" constant="10" id="BiX-8x-ddp"/>
                     <constraint firstAttribute="bottom" secondItem="YQu-xG-XKY" secondAttribute="bottom" constant="8" id="DRb-Oz-4Oi"/>
                     <constraint firstAttribute="trailing" secondItem="Via-Hh-9RZ" secondAttribute="trailing" constant="4" id="K0v-VT-6Nu"/>
                     <constraint firstItem="Via-Hh-9RZ" firstAttribute="top" secondItem="KWP-KG-bS4" secondAttribute="top" id="PNn-G2-AdR"/>
-                    <constraint firstItem="Via-Hh-9RZ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="YQu-xG-XKY" secondAttribute="trailing" constant="10" id="PVW-oq-c3a"/>
+                    <constraint firstItem="Via-Hh-9RZ" firstAttribute="leading" secondItem="1W1-TL-q1a" secondAttribute="trailing" constant="3" id="WAm-ve-fV9"/>
                     <constraint firstItem="YQu-xG-XKY" firstAttribute="leading" secondItem="KWP-KG-bS4" secondAttribute="leading" id="cMA-NT-j8w"/>
                     <constraint firstItem="Via-Hh-9RZ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="KWP-KG-bS4" secondAttribute="trailing" constant="10" id="cm5-z0-4R1"/>
                     <constraint firstItem="hP9-F0-TyY" firstAttribute="baseline" secondItem="KWP-KG-bS4" secondAttribute="baseline" id="dvj-4J-7Vz"/>
                     <constraint firstItem="Via-Hh-9RZ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="hP9-F0-TyY" secondAttribute="trailing" constant="10" id="hG3-lY-JfO"/>
                     <constraint firstItem="KWP-KG-bS4" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="hq6-p3-rzp"/>
                     <constraint firstItem="hP9-F0-TyY" firstAttribute="leading" secondItem="KWP-KG-bS4" secondAttribute="trailing" constant="1" id="kb1-5b-gga"/>
+                    <constraint firstItem="1W1-TL-q1a" firstAttribute="baseline" secondItem="YQu-xG-XKY" secondAttribute="baseline" id="ltx-qN-DFa"/>
                     <constraint firstItem="YQu-xG-XKY" firstAttribute="top" relation="greaterThanOrEqual" secondItem="KWP-KG-bS4" secondAttribute="bottom" constant="8" id="m6n-vB-o6I"/>
                     <constraint firstItem="KWP-KG-bS4" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="wIK-uk-anR"/>
                 </constraints>
@@ -76,6 +84,7 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="btnVolume" destination="Via-Hh-9RZ" id="h43-eX-caF"/>
+                <outlet property="lblNextDisplay" destination="1W1-TL-q1a" id="Ne1-Wn-NtY"/>
                 <outlet property="lblPartOfSpeech" destination="hP9-F0-TyY" id="SAh-Q6-ipM"/>
                 <outlet property="lblTranslation" destination="YQu-xG-XKY" id="el1-Ex-mA4"/>
                 <outlet property="lblWord" destination="KWP-KG-bS4" id="LVK-H3-vxb"/>

@@ -10,11 +10,23 @@ import Foundation
 import UIKit
 
 extension UIColor {
+  convenience init(_ rgb: Int32) {
+    let red = CGFloat((rgb & 0xFF0000) >> 16)/256.0
+    let green = CGFloat((rgb & 0xFF00) >> 8)/256.0
+    let blue = CGFloat(rgb & 0xFF)/256.0
+    
+    self.init(red:red, green:green, blue:blue, alpha:1.0)
+  }
+  
   open class var vocInputText: UIColor
-    { get { return UIColor(red:0.00, green:0.20, blue:0.38, alpha:1.0) } }
+    { get {
+      return UIColor(red:0.00, green:0.20, blue:0.38, alpha:1.0) } }
 
   open class var vocInputPlaceholder: UIColor
-    { get { return UIColor(red:0.00, green:0.20, blue:0.38, alpha:0.4) } }
+    { get {
+      //return UIColor(red:0.00, green:0.20, blue:0.38, alpha:0.4)
+      return UIColor(red:0.580, green:0.580, blue:0.588, alpha:1.0)
+    } }
 
   open class var vocTranslationText: UIColor
     { get { return UIColor(red:0.18, green:0.27, blue:0.00, alpha:1.0) } }
@@ -23,13 +35,13 @@ extension UIColor {
     { get { return UIColor(red:0.18, green:0.27, blue:0.00, alpha:0.4) } }
   
   open class var vocBackground: UIColor
-    { get { return UIColor(red:0.84, green:0.84, blue:0.84, alpha:1.0) } }
+    { get { return UIColor(0xcfcfcf) } }
   
-  open class var vocAction: UIColor
-    { get { return UIColor(red:0.00, green:0.64, blue:1.00, alpha:1.0) } }
+  open class var vocPlainText: UIColor
+    { get { return UIColor.black } }
   
-  open class var vocSeparator: UIColor
-    { get { return UIColor(red:0.86, green:0.58, blue:0.00, alpha:1.0) } }
+  open class var vocAction: UIColor { get { return UIColor(0xeb6648) } }
+  
 }
 
 extension UIFont {
@@ -44,6 +56,12 @@ extension UIFont {
   
   open class var vocHeaders: UIFont
     { get { return UIFont(name: "SanFranciscoDisplay-Regular", size: 26)! } } //34
+  
+  open class var vocSmalTitles: UIFont
+    { get { return UIFont(name: "SanFranciscoDisplay-Bold", size: 26)! } } //34
+  
+  open class var vocTableCellText: UIFont
+    { get { return UIFont(name: "SanFranciscoDisplay-Regular", size: 20)! } } //34
 }
 
 

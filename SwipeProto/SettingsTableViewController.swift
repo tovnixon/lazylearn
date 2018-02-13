@@ -17,6 +17,11 @@ class SettingsTableViewController: UITableViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    let attrs = [
+      NSAttributedStringKey.foregroundColor: UIColor.vocPlainText,
+      NSAttributedStringKey.font: UIFont.vocHeaders
+    ]
+    navigationController?.navigationBar.titleTextAttributes = attrs
     repetitionStep.selectedSegmentIndex = DAO.shared.repetitionStep.index()
   }
   
@@ -33,6 +38,7 @@ class SettingsTableViewController: UITableViewController {
   
   @IBAction func repetitionStepChanged() {
     DAO.shared.repetitionStep = RepetitionStep(index: self.repetitionStep.selectedSegmentIndex)
+    DAO.shared.saveOnDisk()
   }
   
   @IBAction func enableNotifications() {

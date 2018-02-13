@@ -17,16 +17,16 @@ enum RecallGrade: Int {
 }
 
 struct StepRepetitionRecord: Codable {
-  var eFactor: Float = 2.5 // Easiness factor
-  var interval: Int = 0   // in days. In how many days record should be showed next time
-  var repetition: Int8 = 0 // number of repetitions
-  
+  var eFactor: Double = 2.5 // Easiness factor
+  var interval: Int32 = 0   // in days. In how many days record should be showed next time
+  var repetition: Int32 = 0 // number of repetitions
+
   // Calculate when data should be proposed to recall next time
   // Call immediately after current displaying and evaluating recall difficulty
   // @param grade recall difficulty
   // @return interval to next proposal in days
   
-  mutating func doRepetition(with grade: RecallGrade) -> Int {
+  mutating func doRepetition(with grade: RecallGrade) -> Int32 {
     if grade.rawValue >= 2 {
       if repetition == 0 {
         repetition = 1
@@ -35,14 +35,14 @@ struct StepRepetitionRecord: Codable {
         repetition = 2
         interval = 6
       } else {
-        interval = Int((Float(interval) * eFactor).rounded())
+        interval = Int32((Double(interval) * eFactor).rounded())
         repetition += 1
       }
     } else {
       repetition = 0
       interval = 0
     }
-    let dGrade = Float(3 - grade.rawValue)
+    let dGrade = Double(3 - grade.rawValue)
     eFactor = eFactor + (0.1 - dGrade * (0.08 + dGrade * 0.02))
 
     if eFactor < 1.3 {

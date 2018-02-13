@@ -8,9 +8,7 @@
 
 import Foundation
 
-
-class Vocabulary: Codable {
-  
+public struct Vocabulary: Codable {
   struct Language: Codable{
     enum Code: String, Codable {
       case english = "en"
@@ -19,7 +17,7 @@ class Vocabulary: Codable {
       case german = "de"
     }
     
-    let name: String
+    var name: String?
     let code: Code
     var icon: Data?
     
@@ -28,6 +26,9 @@ class Vocabulary: Codable {
     static var german = Language(name: "German", code: .german)
     static var spanish = Language(name: "Spanish", code: .spanish)
     
+    init(code: Code) {
+      self.code = code
+    }
     init(name: String, code: Code) {
       self.name = name
       self.code = code
@@ -36,20 +37,33 @@ class Vocabulary: Codable {
   
   let sourceLang: Language
   let translationLang: Language
-  var database: String
   
+  init(source: Language, translation: Language) {
+    self.sourceLang = source
+    self.translationLang = translation
+  }
+
   func title() -> String {
-      return "\(sourceLang.name) - \(translationLang.name)"
+    return "\(sourceLang.name!) - \(translationLang.name!)"
   }
   
-  static var en_ru_Vocabulary = Vocabulary(sourceLang: .english, translationLang: .russian, database: "en_ru_dictionary")
-  static var es_en_Vocabulary = Vocabulary(sourceLang: .spanish, translationLang: .english, database: "es_en_dictionary")
-  static var ede_en_Vocabulary = Vocabulary(sourceLang: .german, translationLang: .english, database: "de_en_dictionary")
+  static var en_ru_Vocabulary = Vocabulary(sourceLang: .english, translationLang: .russian)
+  static var es_en_Vocabulary = Vocabulary(sourceLang: .spanish, translationLang: .english)
+  static var ede_en_Vocabulary = Vocabulary(sourceLang: .german, translationLang: .english)
   
-  private init(sourceLang: Language, translationLang: Language, database: String) {
+  static func databaseName(sourceLang: Language, translationLang: Language) -> String {
+    switch (sourceLang.code, translationLang.code) {
+    case (.german, .english): return "de_en_dictionary"
+    case (.spanish, .english): return "es_en_dictionary"
+    case (.english, .russian): return "en_ru_dictionary"
+    default:
+      return ""
+    }
+  }
+  
+  init(sourceLang: Language, translationLang: Language) {
     self.sourceLang = sourceLang
     self.translationLang = translationLang
-    self.database = database
   }
   
 }

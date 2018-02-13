@@ -8,109 +8,95 @@
 
 import Foundation
 
-enum RepetitionStep: Int {
-  case tenMin = 10
-  case halfHour = 30
-  case twelweHours = 720
-  case day = 1440
-  
-  func index() -> Int {
-    switch self {
-      case .tenMin: return 0
-      case .halfHour: return 1
-      case .twelweHours: return 2
-      case .day: return 3
-    }
-  }
-  
-  init(index: Int) {
-    switch index {
-    case 0: self = .tenMin
-      case 1: self = .halfHour
-      case 2: self = .twelweHours
-      case 3: self = .day
-      default: self = .day
-    }
-  }
-}
-
 class DAO {
-  var records : [VocRecord] = []
-  private let userDefaultsRecordsKey = "VocRecords"
+  var db: SQLiteDatabase?
   private let userDefaultsVocabularyKey = "CurrentVocabularyKey"
   private let userDefaultsRepetitionStepKey = "RepetitionStepKey"
   
-  var currentVocabulary = Vocabulary.en_ru_Vocabulary { didSet {
-      self.saveOnDisk()
-    }
-  }
+  var currentVocabulary = Vocabulary.en_ru_Vocabulary
   
-  var repetitionStep: RepetitionStep = .tenMin { didSet {
-    self.saveOnDisk()
-    }
-  }
+  var repetitionStep: RepetitionStep = .tenMin 
   
   static let shared = DAO()
   
   init() {
+    do {
+      try openDB()
+      try db?.createRecordsTable()
+    } catch {
+      print(db?.errorMessage ?? "")
+    }
+
     readFromDisk()
   }
   
-  func update(with record: VocRecord) {
-    if let index = records.index(of: record) {
-      records[index] = record
-      saveOnDisk()
-    } else {
-      insert(record)
+  private func openDB() throws {
+    let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+    let documentsDirectory = paths[0]
+    let dbPath = documentsDirectory.appendingPathComponent("UserVocabulary.sqlite")
+    
+    do {
+      db = try SQLiteDatabase.open(path: dbPath.absoluteString)
+      print("Successfully opened connection to database.")
+    } catch SQLiteError.OpenDatabase(let message) {
+      print("Error while opening database \(message)")
     }
+  }
+
+  func update(with record: VocRecord) {
+    db?.update(record: VocRecordSQL(r: record))
   }
   
   func insert(_ record: VocRecord) {
-    records.append(record)
-    // propose to enable notifications
-    saveOnDisk()
-    if records.count == 10 {
-      NotificationScanner.requestAuthorizationForNotifications { (enabled) in
-      }
+    do {
+      let record = VocRecordSQL(r: record)
+      try db?.insertSQL(record: record)
+    } catch {
+      print(db?.errorMessage ?? "")
     }
   }
   
   func fetchAllWords() -> [VocRecord] {
-    return records
+    if let all = db?.allRecords() {
+      return all.map {VocRecord(r: $0) }
+    }
+    return [VocRecord]()
   }
   
   func recordsSortedByProposalDate() -> [VocRecord] {
-    let sorted = records.sorted(by: { $0.nextDisplayDate.compare($1.nextDisplayDate) == .orderedAscending } )
-    return sorted
+    if let all = db?.recordsSortedByProposalDate() {
+      return all.map {VocRecord(r: $0) }
+    }
+    return [VocRecord]()
   }
   
-  func availableToLearnRecordsCount() -> Int {
-    var count = 0
-    for r in records {
-      if r.shouldBeProposedNow() {
-        count += 1
+  func availableToLearnRecordsCount() -> Int32 {
+    do {
+      if let c = try db?.availableToLearnRecords() {
+        return c
       }
+    } catch {
+      
     }
-    return count
+    return 0
   }
   
-  func availableToRepeatRecordsCount() -> Int {
-    var count = 0
-    for r in records {
-      if r.shouldBeProposedNow() && !r.neverLearned {
-        count += 1
+  func availableToRepeatRecordsCount() -> Int32 {
+    do {
+      if let c = try db?.availableToRepeatRecordsCount() {
+        return c
       }
+    } catch {
+      
     }
-    return count
+    return 0
   }
 
     
-  private func saveOnDisk() {
+   func saveOnDisk() {
     let encoder = PropertyListEncoder()
     let userDefaults = UserDefaults.standard
     do {
-      let data = try encoder.encode(records)
-      userDefaults.set(data, forKey: userDefaultsRecordsKey)
       let vocData = try encoder.encode(currentVocabulary)
       userDefaults.set(vocData, forKey: userDefaultsVocabularyKey)
       
@@ -123,17 +109,6 @@ class DAO {
   private func readFromDisk() {
     //read repetitin step
     
-    // read records
-    if let data = UserDefaults.standard.value(forKey: userDefaultsRecordsKey) as? Data {
-      let decoder = PropertyListDecoder()
-      do {
-        self.records = try decoder.decode(Array<VocRecord>.self, from: data)
-      } catch DecodingError.keyNotFound {
-        self.records = [VocRecord]()
-      } catch {
-        self.records = [VocRecord]()
-      }
-    }
     // read current vocabulary
     if let data = UserDefaults.standard.value(forKey: userDefaultsVocabularyKey) as? Data {
       let decoder = PropertyListDecoder()
@@ -146,7 +121,8 @@ class DAO {
       }
     }
     if let step = UserDefaults.standard.value(forKey: userDefaultsRepetitionStepKey) as? Int {
-      self.repetitionStep = RepetitionStep(rawValue: step)!
+      self.repetitionStep = RepetitionStep(rawValue: Int32(step))!
+      print(step)
     }
 
   }

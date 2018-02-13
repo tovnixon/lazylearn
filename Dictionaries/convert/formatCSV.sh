@@ -1,6 +1,6 @@
 #!/bin/bash
-INPUT_FILE="de-en-enwiktionary.txt"
-OUTPUT_FILE="de-en-dict_result.csv"
+INPUT_FILE="es-en-enwiktionary.txt"
+OUTPUT_FILE="es-en-dict_result.csv"
 VERBOSE=false
 while [ $# -gt 0 ] 
 do

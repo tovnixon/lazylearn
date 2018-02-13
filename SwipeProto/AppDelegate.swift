@@ -16,6 +16,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
     // Override point for customization after application launch.
+    UINavigationBar.appearance().tintColor = UIColor.vocAction
+    UITabBar.appearance().tintColor = UIColor.vocAction
+    UITextField.appearance().tintColor = UIColor.vocAction
+    UINavigationBar.appearance().barTintColor = UIColor(0xe8e8e9)
     _ = DAO.shared
     return true
   }

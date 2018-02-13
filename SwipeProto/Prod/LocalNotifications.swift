@@ -76,7 +76,7 @@ class NotificationScanner {
         let components = NSCalendar.current.dateComponents(unitFlags, from: r.nextDisplayDate)
         let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
         let identifier = r.identifier
-        let request = UNNotificationRequest(identifier: identifier,
+        let request = UNNotificationRequest(identifier: String(identifier),
                                             content: content, trigger: trigger)
         center.add(request, withCompletionHandler: { (error) in
           if let error = error {
@@ -86,6 +86,6 @@ class NotificationScanner {
         i += 1
       }
     }
-    UIApplication.shared.applicationIconBadgeNumber = DAO.shared.availableToRepeatRecordsCount()
+    UIApplication.shared.applicationIconBadgeNumber = Int(DAO.shared.availableToRepeatRecordsCount())
   }
 }
