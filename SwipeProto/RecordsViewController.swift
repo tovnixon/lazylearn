@@ -73,10 +73,14 @@ class RecordsViewController: UIViewController {
 extension RecordsViewController: VocRecordTableViewCellDelegate {
   func pronounce(text: String?) {
     if let r = text {
-      let utterance = AVSpeechUtterance(string: r)
-      utterance.voice = AVSpeechSynthesisVoice(language: "en")
-      utterance.rate = 0.4
-      synthesizer.speak(utterance)
+      let match = records.filter { $0.word.spelling == text }
+      if let w = match[safe: 0] {
+        let code = w.vocabulary.sourceLang.code.rawValue
+        let utterance = AVSpeechUtterance(string: r)
+        utterance.voice = AVSpeechSynthesisVoice(language: code)
+        utterance.rate = 0.4
+        synthesizer.speak(utterance)
+      }
     }
   }
 }
@@ -101,7 +105,8 @@ extension RecordsViewController: UITableViewDataSource, UITableViewDelegate {
     cell.lblWord.text = r.word.spelling
     cell.lblTranslation.text = r.trans.spelling
     let dateFormatter = DateFormatter()
-    dateFormatter.dateFormat = "EEE d.M"
+//    dateFormatter.dateFormat = "EEE d.M"
+    dateFormatter.dateFormat = "dd.mm.YY hh:MM"
     
     cell.lblNextDisplay.text = dateFormatter.string(from: r.nextDisplayDate)
     if r.word.partOfSpeech.count > 0 {

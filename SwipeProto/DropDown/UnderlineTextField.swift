@@ -60,6 +60,8 @@ class UnderlineLabel: UILabel {
 
 class UnderlineTextField: UITextField {
   public var forceLanguageCode = ""
+  //public var customPlaceholderAttr = [NSAttributedStringKey : Any]()
+  
   public var solidUnderline: Bool = false {
     didSet {
       self.setNeedsDisplay()
@@ -97,6 +99,18 @@ class UnderlineTextField: UITextField {
       path.setLineDash(pattern, count: 2, phase: 0)
     }
     path.stroke()
-    
+  }
+}
+
+extension String {
+  func byConverting(with attributedFormat: [(NSMutableAttributedString, (UIFont, UIColor))]) -> NSMutableAttributedString {
+    let fullString = NSMutableAttributedString()
+    for (text, (font, color)) in attributedFormat {
+      let range = NSRange(location: self.count, length: text.length)
+      text.addAttribute(NSAttributedStringKey.font, value: font, range: range)
+      text.addAttribute(NSAttributedStringKey.foregroundColor, value: color, range: range)
+      fullString.append(text)
+    }
+    return fullString
   }
 }

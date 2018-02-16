@@ -58,7 +58,10 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" alpha="0.80000001192092896" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1W1-TL-q1a" userLabel="NextdisplayDate">
-                        <rect key="frame" x="238.5" y="57" width="24.5" height="14"/>
+                        <rect key="frame" x="173" y="57" width="90" height="14"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="90" id="Ob5-um-IHk"/>
+                        </constraints>
                         <fontDescription key="fontDescription" name="SanFranciscoDisplay-Ultralight" family="San Francisco Display" pointSize="11"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>

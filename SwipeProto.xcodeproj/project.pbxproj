@@ -20,6 +20,7 @@
 		715A25201FBF1EE800E6AA91 /* DropDownTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 715A251E1FBF1EE800E6AA91 /* DropDownTableViewCell.xib */; };
 		7161A2E1202D1FA900EFFE77 /* SQLiteDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7161A2E0202D1FA900EFFE77 /* SQLiteDatabase.swift */; };
 		7161A2E320334E4400EFFE77 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7161A2E220334E4400EFFE77 /* Images.xcassets */; };
+		717C9FCB2037628C00984056 /* SelectTrainingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 717C9FCA2037628C00984056 /* SelectTrainingViewController.swift */; };
 		719F682220228B300096E35A /* CollectionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719F682120228B300096E35A /* CollectionExtensions.swift */; };
 		71A60FC5202D024B004344EC /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71A60FC4202D024B004344EC /* Model.swift */; };
 		71B5A47F1FDEEA05001ECE87 /* DAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B5A47E1FDEEA05001ECE87 /* DAO.swift */; };
@@ -81,6 +82,7 @@
 		715A251E1FBF1EE800E6AA91 /* DropDownTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DropDownTableViewCell.xib; sourceTree = "<group>"; };
 		7161A2E0202D1FA900EFFE77 /* SQLiteDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteDatabase.swift; sourceTree = "<group>"; };
 		7161A2E220334E4400EFFE77 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		717C9FCA2037628C00984056 /* SelectTrainingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTrainingViewController.swift; sourceTree = "<group>"; };
 		719F682120228B300096E35A /* CollectionExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionExtensions.swift; sourceTree = "<group>"; };
 		71A60FC4202D024B004344EC /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		71B5A47E1FDEEA05001ECE87 /* DAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DAO.swift; sourceTree = "<group>"; };
@@ -213,6 +215,7 @@
 				719F682120228B300096E35A /* CollectionExtensions.swift */,
 				71A60FC4202D024B004344EC /* Model.swift */,
 				7161A2E0202D1FA900EFFE77 /* SQLiteDatabase.swift */,
+				717C9FCA2037628C00984056 /* SelectTrainingViewController.swift */,
 			);
 			path = Prod;
 			sourceTree = "<group>";
@@ -443,6 +446,7 @@
 				71D924521FCDD9A800D72CBC /* VocRecord.swift in Sources */,
 				71D37D8B1FC831DD00E1A88C /* ProtoStyle.swift in Sources */,
 				715A25191FBEE45F00E6AA91 /* InputViewController.swift in Sources */,
+				717C9FCB2037628C00984056 /* SelectTrainingViewController.swift in Sources */,
 				71D37D7D1FC1F39000E1A88C /* UnderlineTextField.swift in Sources */,
 				710DD1FE202201A500A12F0F /* LocalNotifications.swift in Sources */,
 				715A25051FBDBFFC00E6AA91 /* UIView+Autolayout.swift in Sources */,

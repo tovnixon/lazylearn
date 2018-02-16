@@ -59,26 +59,37 @@ UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFl
     view.backgroundColor = UIColor.vocBackground
     
     cnstrNextHeight.constant = 50
+    // placeholder
+    let fontAndColorMain = (UIFont.vocInputText, UIColor.vocInputPlaceholder)
+    let fontAndColorText = (UIFont.vocTableCellText, UIColor.vocAction)
+    txtInput.font = UIFont.vocInputText
     
+    let inputPlaceholder = "".byConverting(with:
+      [(NSMutableAttributedString(string: "new word"), fontAndColorMain),
+      (NSMutableAttributedString(string: "(\(DAO.shared.currentVocabulary.sourceLang.code.rawValue))") , fontAndColorText)])
+    txtInput.attributedPlaceholder = inputPlaceholder
+    
+    //-
+    txtTrans.font = UIFont.vocInputText
+    let translationPlaceholder = "".byConverting(with:
+      [(NSMutableAttributedString(string: "translation"), fontAndColorMain),
+       (NSMutableAttributedString(string: "(\(DAO.shared.currentVocabulary.translationLang.code.rawValue))") , fontAndColorText)])
+    txtTrans.attributedPlaceholder = translationPlaceholder
+    //
     txtInput.text = ""
     txtInput.forceLanguageCode = DAO.shared.currentVocabulary.sourceLang.code.rawValue
     txtInput.textColor = UIColor.vocInputText
-    txtInput.attributedPlaceholder = NSAttributedString(string: "new word", attributes:[NSAttributedStringKey.foregroundColor : UIColor.vocInputPlaceholder])
     txtInput.backgroundColor = .clear
-    txtInput.placeholder = "new word"
     txtInput.becomeFirstResponder()
     txtInput.textAlignment = .center
-    txtInput.font = UIFont.vocInputText
+    
     //
     txtTrans.text = ""
     txtTrans.forceLanguageCode = DAO.shared.currentVocabulary.translationLang.code.rawValue
     txtTrans.textColor = UIColor.vocTranslationText
-    txtTrans.attributedPlaceholder = NSAttributedString(string: "translation", attributes:[NSAttributedStringKey.foregroundColor : UIColor.vocInputPlaceholder])
-    
     txtTrans.backgroundColor = .clear
-    txtTrans.placeholder = "translation"
     txtTrans.textAlignment = .center
-    txtTrans.font = UIFont.vocInputText
+    
     txtTrans.isHidden = true
     //
     let flowLayout = UICollectionViewFlowLayout()

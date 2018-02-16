@@ -21,7 +21,7 @@ public struct VocRecord: Codable, Hashable {
   var trans: Word = Word()
   var creationDate = Date()
   var srData: StepRepetitionRecord = StepRepetitionRecord()
-  var nextDisplayDate: Date = Date(timeIntervalSince1970: 0)
+  var nextDisplayDate: Date = Date()
   var neverLearned = true
   
   var identifier: Int32 = 1
@@ -55,6 +55,7 @@ public struct VocRecord: Codable, Hashable {
     let nextIntervalMinutes = nextInterval * DAO.shared.repetitionStep.rawValue
     if let next = Calendar.current.date(byAdding: .minute, value: Int(nextIntervalMinutes), to: Date()) {
       nextDisplayDate = next
+      print("Set next \(nextDisplayDate) to \(self.word.spelling)")
     } else {
       print("VocRecord grade error, can't get next display date")
       nextDisplayDate = Date()

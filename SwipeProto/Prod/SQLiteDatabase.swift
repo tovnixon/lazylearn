@@ -189,6 +189,22 @@ extension SQLiteDatabase {
     return record
   }
 
+  func recordsToProposeNow() -> [VocRecordSQL] {
+    let now = Date().timeIntervalSince1970
+    guard let queryStatement = try? prepareStatement(sql: "SELECT * FROM records WHERE nextDisplayDate < \(now) ORDER BY creationDate DESC") else {
+      return [VocRecordSQL]()
+    }
+    defer {
+      sqlite3_finalize(queryStatement)
+    }
+    var records = [VocRecordSQL]()
+    while sqlite3_step(queryStatement) == SQLITE_ROW {
+      let r = record(queryStatement)
+      records.append(r)
+    }
+    return records
+  }
+
   func recordsSortedByCreationDate() -> [VocRecordSQL] {
     guard let queryStatement = try? prepareStatement(sql: "SELECT * FROM records ORDER BY creationDate DESC") else {
       return [VocRecordSQL]()
@@ -249,6 +265,17 @@ extension SQLiteDatabase {
     return count
   }
 
+  func delete(by recordId: Int32) throws {
+    let deleteSql = "DELETE FROM records WHERE Id = \(recordId);"
+    let deleteStatement = try prepareStatement(sql: deleteSql)
+    defer {
+      sqlite3_finalize(deleteStatement)
+    }
+    guard sqlite3_step(deleteStatement) == SQLITE_DONE else {
+      throw SQLiteError.Step(message: errorMessage)
+    }
+    print("record with Id = \(recordId) deleted")
+  }
   
   func insertSQL(record: VocRecordSQL) throws {
     let insertSql = """

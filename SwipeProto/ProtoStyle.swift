@@ -62,6 +62,8 @@ extension UIFont {
   
   open class var vocTableCellText: UIFont
     { get { return UIFont(name: "SanFranciscoDisplay-Regular", size: 20)! } } //34
+  
 }
+
 
 

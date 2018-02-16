@@ -16,12 +16,10 @@ class SRViewController: UIViewController {
   }
   var state: ViewState = ViewState.noData
   var record: VocRecord?
-  var records: [VocRecord] = [VocRecord]()
+  var records: [VocRecord] = DAO.shared.recordsToProposeNow()
   var synthesizer = AVSpeechSynthesizer()
   var index: Int = 0
-  var forceTrainingMode = false
   
-  @IBOutlet weak var btnTrain: StagedButton!
   @IBOutlet weak var lblNoData: UILabel!
   @IBOutlet weak var wordsView: UIView!
   @IBOutlet weak var lblWord: UnderlineLabel!
@@ -38,7 +36,7 @@ class SRViewController: UIViewController {
     super.viewDidLoad()
     setupUI()
     synthesizer.delegate = self
-    records = DAO.shared.fetchAllWords().shuffled()
+    records = records.shuffled()
     getNextCard()
   }
   
@@ -49,10 +47,12 @@ class SRViewController: UIViewController {
   
   func updateState() {
     let availableWordsCount = DAO.shared.availableToLearnRecordsCount()
-    if availableWordsCount == 0 && !forceTrainingMode {
+    if availableWordsCount == 0 {
       state = .noData
     } else {
+      index = 0
       state = .normal
+      records = DAO.shared.recordsToProposeNow().shuffled()
     }
     updateUI()
   }
@@ -60,13 +60,11 @@ class SRViewController: UIViewController {
   func updateUI() {
     switch state {
     case .noData:
-      btnTrain.isHidden = false
       lblNoData.isHidden = false
       wordsView.isHidden = true
       btnTranslate.isHidden = true
       gradeView.isHidden = true
     case .normal:
-      btnTrain.isHidden = true
       lblNoData.isHidden = true
       wordsView.isHidden = false
       btnTranslate.isHidden = false
@@ -83,7 +81,6 @@ class SRViewController: UIViewController {
     navigationController?.navigationBar.titleTextAttributes = attrs
     view.backgroundColor = UIColor.vocBackground
     lblNoData.font = UIFont.vocHeaders
-    btnTrain.titleLabel?.font = UIFont.vocHeaders
     wordsView.layer.cornerRadius = 20.0
     
     btnVoice.isHidden = true
@@ -108,25 +105,14 @@ class SRViewController: UIViewController {
   
   func getNextCard() {
     if let r = records[safe: index] {
-      if (r.shouldBeProposedNow() || forceTrainingMode) && r.trans.spelling.count > 0 && r.word.spelling.count > 0 {
-        record = r
-        lblWord.text = record!.trans.spelling
-      } else {
-        index += 1
-        getNextCard()
-      }
+      record = r
+      lblWord.text = record!.trans.spelling
+      index += 1
     } else {
       index = 0
-      records = DAO.shared.fetchAllWords().shuffled()
-      forceTrainingMode = false
+      records.removeAll()
       updateState()
     }
-    
-  }
-  
-  @IBAction func train() {
-    forceTrainingMode = true
-    updateState()
   }
   
   @IBAction func translate() {
@@ -154,8 +140,6 @@ class SRViewController: UIViewController {
     let recallGrade = RecallGrade(rawValue: grade)!
     record?.gradeRecallEasyness(grade: recallGrade)
     DAO.shared.update(with: record!)
-    
-    index += 1
     
     btnTranslate.isHidden = false
     gradeView.isHidden = true

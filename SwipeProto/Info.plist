@@ -4,6 +4,8 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>UIFileSharingEnabled</key>
+	<true/>
 	<key>CFBundleDisplayName</key>
 	<string>Lazy Learn</string>
 	<key>CFBundleExecutable</key>
@@ -36,6 +38,7 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>SanFranciscoDisplay-Semibold.otf</string>
+		<string>SanFranciscoDisplay-Thin.otf</string>
 		<string>SanFranciscoDisplay-Medium.otf</string>
 		<string>SanFranciscoDisplay-Bold.otf</string>
 		<string>SanFranciscoDisplay-Regular.otf</string>

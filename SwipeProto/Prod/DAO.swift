@@ -11,11 +11,10 @@ import Foundation
 class DAO {
   var db: SQLiteDatabase?
   private let userDefaultsVocabularyKey = "CurrentVocabularyKey"
-  private let userDefaultsRepetitionStepKey = "RepetitionStepKey"
   
   var currentVocabulary = Vocabulary.en_ru_Vocabulary
   
-  var repetitionStep: RepetitionStep = .tenMin 
+  var repetitionStep: RepetitionStep = .day
   
   static let shared = DAO()
   
@@ -77,6 +76,21 @@ class DAO {
     return [VocRecord]()
   }
 
+  func recordsToProposeNow() -> [VocRecord] {
+    if let all = db?.recordsToProposeNow() {
+      return all.map {VocRecord(r: $0) }
+    }
+    return [VocRecord]()
+  }
+
+  func deleteRecord(by id: Int32) {
+    do {
+      try db?.delete(by: id)
+    } catch {
+      
+    }
+  }
+  
   func availableToLearnRecordsCount() -> Int32 {
     do {
       if let c = try db?.availableToLearnRecords() {
@@ -107,7 +121,6 @@ class DAO {
       let vocData = try encoder.encode(currentVocabulary)
       userDefaults.set(vocData, forKey: userDefaultsVocabularyKey)
       
-      userDefaults.set(repetitionStep.rawValue, forKey: userDefaultsRepetitionStepKey)
     } catch {
       print(error)
     }
@@ -126,10 +139,6 @@ class DAO {
       } catch {
         self.currentVocabulary = Vocabulary.en_ru_Vocabulary
       }
-    }
-    if let step = UserDefaults.standard.value(forKey: userDefaultsRepetitionStepKey) as? Int {
-      self.repetitionStep = RepetitionStep(rawValue: Int32(step))!
-      print(step)
     }
 
   }

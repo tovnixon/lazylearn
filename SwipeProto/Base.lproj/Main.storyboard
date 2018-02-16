@@ -23,6 +23,35 @@
         </array>
     </customFonts>
     <scenes>
+        <!--Select Training View Controller-->
+        <scene sceneID="H4C-DK-nFI">
+            <objects>
+                <viewController id="XN3-X4-BZO" customClass="SelectTrainingViewController" customModule="SwipeProto" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="EVC-zJ-ZHB">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lsA-a0-wYg">
+                                <rect key="frame" x="131" y="114" width="113" height="30"/>
+                                <state key="normal" title="Space repetition"/>
+                                <connections>
+                                    <segue destination="w5c-RM-dhR" kind="show" id="XbA-dN-B7e"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="lsA-a0-wYg" firstAttribute="centerX" secondItem="Im4-nT-Bdn" secondAttribute="centerX" id="eHK-Ea-BKR"/>
+                            <constraint firstItem="lsA-a0-wYg" firstAttribute="top" secondItem="Im4-nT-Bdn" secondAttribute="top" constant="50" id="xIY-sD-bz3"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Im4-nT-Bdn"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="790-ln-kre"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hBv-aX-LQN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="978" y="-512"/>
+        </scene>
         <!--Settings-->
         <scene sceneID="HsZ-fa-BWR">
             <objects>
@@ -190,7 +219,7 @@
             </objects>
             <point key="canvasLocation" x="-178" y="-1236"/>
         </scene>
-        <!--Remember It-->
+        <!--Space Repetition-->
         <scene sceneID="cDs-ke-Oxf">
             <objects>
                 <viewController id="w5c-RM-dhR" customClass="SRViewController" customModule="SwipeProto" customModuleProvider="target" sceneMemberID="viewController">
@@ -296,13 +325,6 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WKD-rb-7Mf">
-                                <rect key="frame" x="147" y="373" width="89" height="30"/>
-                                <state key="normal" title="Train anyway"/>
-                                <connections>
-                                    <action selector="train" destination="w5c-RM-dhR" eventType="touchUpInside" id="ho7-PO-uUj"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -312,8 +334,6 @@
                             <constraint firstItem="err-Il-xr1" firstAttribute="centerX" secondItem="yFY-li-gNs" secondAttribute="centerX" id="AHa-w4-lM6"/>
                             <constraint firstItem="mSG-Xz-oJL" firstAttribute="leading" secondItem="yFY-li-gNs" secondAttribute="leading" constant="20" id="D5d-Pg-h0x"/>
                             <constraint firstItem="ULT-jb-cqh" firstAttribute="centerY" secondItem="mSG-Xz-oJL" secondAttribute="centerY" id="EdZ-nu-IIc"/>
-                            <constraint firstItem="WKD-rb-7Mf" firstAttribute="centerX" secondItem="uDc-Fd-zJD" secondAttribute="centerX" id="I2E-55-25Y"/>
-                            <constraint firstItem="WKD-rb-7Mf" firstAttribute="top" secondItem="uDc-Fd-zJD" secondAttribute="bottom" constant="8" id="LJa-6h-YMu"/>
                             <constraint firstItem="yFY-li-gNs" firstAttribute="bottom" secondItem="mSG-Xz-oJL" secondAttribute="bottom" constant="142" id="Mye-AV-yVN"/>
                             <constraint firstItem="Mup-VS-n8e" firstAttribute="leading" secondItem="yFY-li-gNs" secondAttribute="leading" id="RFG-Bc-AzV"/>
                             <constraint firstItem="yFY-li-gNs" firstAttribute="trailing" secondItem="Mup-VS-n8e" secondAttribute="trailing" id="SFo-Jz-FgH"/>
@@ -327,11 +347,10 @@
                         <viewLayoutGuide key="safeArea" id="yFY-li-gNs"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="memorise" image="icons8-brain" id="wEb-xK-Ghg"/>
-                    <navigationItem key="navigationItem" title="Remember It" id="yDc-7R-bBR">
+                    <navigationItem key="navigationItem" title="Space Repetition" id="yDc-7R-bBR">
                         <barButtonItem key="rightBarButtonItem" title="Item" image="icons8-brain" id="7Dv-eF-AY6"/>
                     </navigationItem>
                     <connections>
-                        <outlet property="btnTrain" destination="WKD-rb-7Mf" id="2a0-wZ-2Lo"/>
                         <outlet property="btnTranslate" destination="mSG-Xz-oJL" id="o3k-iI-LS3"/>
                         <outlet property="btnVoice" destination="jLj-J8-boq" id="Oa2-Po-EO8"/>
                         <outlet property="cnstrTransTop" destination="ROo-6G-kFp" id="Q0k-UR-Pjg"/>
@@ -350,7 +369,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="t6Y-4a-Hgn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="978" y="-448"/>
+            <point key="canvasLocation" x="977" y="173"/>
         </scene>
         <!--Tab Bar View Controller-->
         <scene sceneID="rUx-Vu-Cgn">
@@ -492,7 +511,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="w5c-RM-dhR" kind="relationship" relationship="rootViewController" id="wOM-w3-qt4"/>
+                        <segue destination="XN3-X4-BZO" kind="relationship" relationship="rootViewController" id="Yjq-Q2-RKx"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jWg-JF-Lde" userLabel="First Responder" sceneMemberID="firstResponder"/>
