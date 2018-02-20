@@ -9,7 +9,7 @@
 import UIKit
 import  AVFoundation
 
-class SRViewController: UIViewController {
+class SRViewController: BaseViewController {
   enum ViewState {
     case normal
     case noData
@@ -74,12 +74,6 @@ class SRViewController: UIViewController {
   }
   
   func setupUI() {
-    let attrs = [
-      NSAttributedStringKey.foregroundColor: UIColor.vocPlainText,
-      NSAttributedStringKey.font: UIFont.vocHeaders
-    ]
-    navigationController?.navigationBar.titleTextAttributes = attrs
-    view.backgroundColor = UIColor.vocBackground
     lblNoData.font = UIFont.vocHeaders
     wordsView.layer.cornerRadius = 20.0
     
@@ -106,6 +100,15 @@ class SRViewController: UIViewController {
   func getNextCard() {
     if let r = records[safe: index] {
       record = r
+      
+/*      let fontAndColorMain = (UIFont.vocInputText, UIColor.vocInputText)
+      let fontAndColorText = (UIFont.vocTableCellText, UIColor.vocAction)
+      let inputPlaceholder = "".byConverting(with:
+        [(NSMutableAttributedString(string: record!.trans.spelling), fontAndColorMain),
+         (NSMutableAttributedString(string: "(\(record!.vocabulary.translationLang.code.rawValue))") , fontAndColorText)])
+      
+      lblWord.attributedText = inputPlaceholder
+ */
       lblWord.text = record!.trans.spelling
       index += 1
     } else {

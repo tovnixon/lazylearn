@@ -43,6 +43,7 @@ class StagedButton: UIButton {
 class UnderlineLabel: UILabel {
   override func draw(_ rect: CGRect) {
     super.draw(rect)
+    //self.attributedText?.draw(in: rect)
     
     let startingPoint   = CGPoint(x: rect.minX, y: rect.maxY)
     let endingPoint     = CGPoint(x: rect.maxX, y: rect.maxY)

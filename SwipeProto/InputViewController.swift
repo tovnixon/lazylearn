@@ -9,7 +9,7 @@
 import UIKit
 import  AVFoundation
 
-class InputViewController: UIViewController,  UITextFieldDelegate, UIGestureRecognizerDelegate,
+class InputViewController: BaseViewController,  UITextFieldDelegate, UIGestureRecognizerDelegate,
 UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
   
   enum InputState: NSInteger {
@@ -50,13 +50,6 @@ UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFl
     lblPartOfSpeech.text = nil
     btnVoice.isHidden = true
     navigationItem.title = DAO.shared.currentVocabulary.title()
-    let attrs = [
-      NSAttributedStringKey.foregroundColor: UIColor.vocPlainText,
-      NSAttributedStringKey.font: UIFont.vocHeaders
-    ]
-    
-    navigationController?.navigationBar.titleTextAttributes = attrs
-    view.backgroundColor = UIColor.vocBackground
     
     cnstrNextHeight.constant = 50
     // placeholder

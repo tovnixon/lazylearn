@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 
-class RecordsViewController: UIViewController {
+class RecordsViewController: BaseViewController {
   
   @IBOutlet weak var tableView: UITableView!
   let searchController = UISearchController(searchResultsController: nil)
@@ -33,11 +33,6 @@ class RecordsViewController: UIViewController {
     definesPresentationContext = true
     
     self.navigationItem.title = "My words"
-    let attrs = [
-      NSAttributedStringKey.foregroundColor: UIColor.vocPlainText,
-      NSAttributedStringKey.font: UIFont.vocHeaders
-    ]
-    navigationController?.navigationBar.titleTextAttributes = attrs
 
     let nib = UINib(nibName: "VocRecordTableViewCell", bundle: nil)
     tableView.register(nib, forCellReuseIdentifier: "VocRecordTableViewCell")
@@ -105,8 +100,7 @@ extension RecordsViewController: UITableViewDataSource, UITableViewDelegate {
     cell.lblWord.text = r.word.spelling
     cell.lblTranslation.text = r.trans.spelling
     let dateFormatter = DateFormatter()
-//    dateFormatter.dateFormat = "EEE d.M"
-    dateFormatter.dateFormat = "dd.mm.YY hh:MM"
+    dateFormatter.dateFormat = "dd-MMM-YYYY HH:mm"
     
     cell.lblNextDisplay.text = dateFormatter.string(from: r.nextDisplayDate)
     if r.word.partOfSpeech.count > 0 {
