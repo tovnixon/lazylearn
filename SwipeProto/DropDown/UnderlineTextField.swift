@@ -59,7 +59,13 @@ class UnderlineLabel: UILabel {
   }
 }
 
+protocol BackspaceNotificator {
+  func backspacePressed(on sender: UITextField)
+}
+
 class UnderlineTextField: UITextField {
+  var backspaceDelegate: BackspaceNotificator?
+  
   public var forceLanguageCode = ""
   //public var customPlaceholderAttr = [NSAttributedStringKey : Any]()
   
@@ -80,6 +86,11 @@ class UnderlineTextField: UITextField {
       }
     }
     return super.textInputMode
+  }
+  
+  override func deleteBackward() {
+    super.deleteBackward()
+    backspaceDelegate?.backspacePressed(on: self)
   }
   
   override func draw(_ rect: CGRect) {

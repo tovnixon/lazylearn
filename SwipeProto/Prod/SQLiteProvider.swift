@@ -14,6 +14,7 @@ struct SQLRecord {
   var translation: String = ""
   var meaning: String = ""
   var partOfSpeech: String = ""
+  var frequency: Double = -1
 }
 
 class SQLiteManager {
@@ -68,7 +69,7 @@ class SQLiteManager {
     
     let start = Date()
     
-    let queryString = "SELECT * FROM dictionary WHERE word LIKE '\(text)%' GROUP BY word"
+    let queryString = "SELECT * FROM dictionary WHERE word LIKE '\(text)%' and frequency > 0 GROUP BY word ORDER BY frequency ASC"
     var stmp: OpaquePointer?
     if sqlite3_prepare(db, queryString, -1, &stmp, nil) != SQLITE_OK {
       let error = String(cString: sqlite3_errmsg(db)!)
@@ -95,6 +96,7 @@ class SQLiteManager {
         let w = String(cString: word)
         newRecord.partOfSpeech = w
       }
+      newRecord.frequency = sqlite3_column_double(stmp, 4)
       
       result.append(newRecord)
       

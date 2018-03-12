@@ -9,7 +9,7 @@
 import UIKit
 import  AVFoundation
 
-class InputViewController: BaseViewController,  UITextFieldDelegate, UIGestureRecognizerDelegate,
+class InputViewController: BaseViewController,  UITextFieldDelegate, BackspaceNotificator, UIGestureRecognizerDelegate,
 UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
   
   enum InputState: NSInteger {
@@ -75,9 +75,11 @@ UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFl
     txtInput.backgroundColor = .clear
     txtInput.becomeFirstResponder()
     txtInput.textAlignment = .center
+    txtInput.clearButtonMode = .unlessEditing
     
     //
     txtTrans.text = ""
+    txtTrans.backspaceDelegate = self
     txtTrans.forceLanguageCode = DAO.shared.currentVocabulary.translationLang.code.rawValue
     txtTrans.textColor = UIColor.vocTranslationText
     txtTrans.backgroundColor = .clear
@@ -160,6 +162,13 @@ UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFl
       h = 2 * defaultCellHeight
     }
 
+    if let trans = txtTrans.text {
+      if suggestionsTrans.contains(trans) {
+        // hide collection view because word is already selected
+          h = 0
+      }
+    }
+
     collectionView.frame = CGRect(x: collectionView.frame.origin.x, y: collectionView.frame.origin.y, width: collectionView.frame.size.width, height:h)
     self.txtTrans.reloadInputViews()
   }
@@ -172,6 +181,10 @@ UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFl
     }
   }
 
+  @IBAction func goLearn() {
+    self.tabBarController?.selectedIndex = 2
+  }
+  
   @IBAction func next() {
     if txtInput.isFirstResponder && inputState == .inputWord {
       if let text = txtInput.text {
@@ -198,6 +211,19 @@ UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFl
       utterance.voice = AVSpeechSynthesisVoice(language: DAO.shared.currentVocabulary.sourceLang.code.rawValue)
       utterance.rate = 0.4
       synthesizer.speak(utterance)
+    }
+  }
+  
+  func backspacePressed(on sender: UITextField) {
+    return
+    guard let text = txtTrans.text else {
+      txtInput.becomeFirstResponder()
+      self.reloadTableView()
+      return
+    }
+    if text.count == 0 {
+      txtInput.becomeFirstResponder()
+      self.reloadTableView()
     }
   }
   
@@ -269,7 +295,7 @@ UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFl
       if txtTrans.text?.count == 0 {
         return
       }
-      self.suggestionsTrans.removeAll()
+      //self.suggestionsTrans.removeAll()
       self.reloadTableViewTrans()
       txtTrans.solidUnderline = true
       //cnstrNextHeight.constant = cnstrNextHeight.constant * 1.2
@@ -315,7 +341,9 @@ UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFl
   
   func filterSuggestionsTrans(by text: String?) -> [String] {
     if let text = text {
-      if text.count > 0 { return suggestionsTrans.filter {$0.contains(text)} }
+      if text.count > 0 {
+        return suggestionsTrans.filter {$0.contains(text)}
+      }
     }
     return suggestionsTrans
   }
@@ -349,6 +377,15 @@ UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFl
       }
       self.reloadTableViewTrans()
     }
+  }
+  
+  func textFieldShouldClear(_ textField: UITextField) -> Bool {
+    self.inputState = .inputWord
+    txtTrans.text = nil
+    reloadTableViewTrans()
+    txtInput.becomeFirstResponder()
+    
+    return true
   }
   
   func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -482,5 +519,6 @@ UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFl
     return 0
   }
   
+
 
 }

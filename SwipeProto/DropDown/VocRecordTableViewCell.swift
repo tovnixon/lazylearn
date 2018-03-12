@@ -13,6 +13,7 @@ protocol VocRecordTableViewCellDelegate: class {
 }
 
 class VocRecordTableViewCell: UITableViewCell {
+  static let reuseIdentifier = "VocRecordTableViewCell"
   @IBOutlet weak var lblWord: UILabel!
   @IBOutlet weak var lblTranslation: UILabel!
   @IBOutlet weak var lblPartOfSpeech: UILabel!

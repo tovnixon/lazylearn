@@ -25,6 +25,9 @@
 		717C9FCF203981EA00984056 /* TrainingMethodTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 717C9FCE203981EA00984056 /* TrainingMethodTableViewCell.swift */; };
 		717C9FD12039821B00984056 /* TrainigMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 717C9FD02039821B00984056 /* TrainigMethod.swift */; };
 		717C9FD42039C4E900984056 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 717C9FD32039C4E900984056 /* BaseViewController.swift */; };
+		717C9FDC203C8CFB00984056 /* EditRecordTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 717C9FDA203C8CFB00984056 /* EditRecordTableCell.swift */; };
+		717C9FDD203C8CFB00984056 /* EditRecordTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 717C9FDB203C8CFB00984056 /* EditRecordTableCell.xib */; };
+		719428E72055F00A00F35874 /* en_ru.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 719428E62055F00A00F35874 /* en_ru.sqlite */; };
 		719F682220228B300096E35A /* CollectionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719F682120228B300096E35A /* CollectionExtensions.swift */; };
 		71A60FC5202D024B004344EC /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71A60FC4202D024B004344EC /* Model.swift */; };
 		71B5A47F1FDEEA05001ECE87 /* DAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B5A47E1FDEEA05001ECE87 /* DAO.swift */; };
@@ -44,6 +47,10 @@
 		71E7B2C52018C4C4008A7F81 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71E7B2C42018C4C4008A7F81 /* SettingsTableViewController.swift */; };
 		71E7B2C72018C5CE008A7F81 /* Vocabularies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71E7B2C62018C5CE008A7F81 /* Vocabularies.swift */; };
 		71E7B2C9201AFE37008A7F81 /* RecordsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71E7B2C8201AFE37008A7F81 /* RecordsViewController.swift */; };
+		71EE335620440FD2000E41DF /* TextPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71EE335520440FD2000E41DF /* TextPickerViewController.swift */; };
+		71EE33582044108E000E41DF /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71EE33572044108E000E41DF /* Extensions.swift */; };
+		71EE335A204410B8000E41DF /* TextPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71EE3359204410B8000E41DF /* TextPickerView.swift */; };
+		71EE335C2044B1F3000E41DF /* TextProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71EE335B2044B1F3000E41DF /* TextProcessor.swift */; };
 		71FC9346202090740079F2ED /* SanFranciscoDisplay-Heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = 71FC9331202090740079F2ED /* SanFranciscoDisplay-Heavy.otf */; };
 		71FC9347202090740079F2ED /* SanFranciscoText-RegularItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 71FC9332202090740079F2ED /* SanFranciscoText-RegularItalic.otf */; };
 		71FC9348202090740079F2ED /* SanFranciscoText-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 71FC9333202090740079F2ED /* SanFranciscoText-Regular.otf */; };
@@ -91,6 +98,9 @@
 		717C9FCE203981EA00984056 /* TrainingMethodTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingMethodTableViewCell.swift; sourceTree = "<group>"; };
 		717C9FD02039821B00984056 /* TrainigMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainigMethod.swift; sourceTree = "<group>"; };
 		717C9FD32039C4E900984056 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		717C9FDA203C8CFB00984056 /* EditRecordTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRecordTableCell.swift; sourceTree = "<group>"; };
+		717C9FDB203C8CFB00984056 /* EditRecordTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditRecordTableCell.xib; sourceTree = "<group>"; };
+		719428E62055F00A00F35874 /* en_ru.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; name = en_ru.sqlite; path = ../../../../Laboratory/Dictionaries/convert/test/en_ru.sqlite; sourceTree = "<group>"; };
 		719F682120228B300096E35A /* CollectionExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionExtensions.swift; sourceTree = "<group>"; };
 		71A60FC4202D024B004344EC /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		71B5A47E1FDEEA05001ECE87 /* DAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DAO.swift; sourceTree = "<group>"; };
@@ -110,6 +120,10 @@
 		71E7B2C42018C4C4008A7F81 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		71E7B2C62018C5CE008A7F81 /* Vocabularies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vocabularies.swift; sourceTree = "<group>"; };
 		71E7B2C8201AFE37008A7F81 /* RecordsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordsViewController.swift; sourceTree = "<group>"; };
+		71EE335520440FD2000E41DF /* TextPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextPickerViewController.swift; sourceTree = "<group>"; };
+		71EE33572044108E000E41DF /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		71EE3359204410B8000E41DF /* TextPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextPickerView.swift; sourceTree = "<group>"; };
+		71EE335B2044B1F3000E41DF /* TextProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextProcessor.swift; sourceTree = "<group>"; };
 		71FC9331202090740079F2ED /* SanFranciscoDisplay-Heavy.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SanFranciscoDisplay-Heavy.otf"; sourceTree = "<group>"; };
 		71FC9332202090740079F2ED /* SanFranciscoText-RegularItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SanFranciscoText-RegularItalic.otf"; sourceTree = "<group>"; };
 		71FC9333202090740079F2ED /* SanFranciscoText-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SanFranciscoText-Regular.otf"; sourceTree = "<group>"; };
@@ -175,6 +189,7 @@
 		71472DB71F9B4A1200E32FCA /* SwipeProto */ = {
 			isa = PBXGroup;
 			children = (
+				71EE335420440F78000E41DF /* Scan */,
 				717C9FD22039C4C200984056 /* ViewControllers */,
 				71FC932F202090740079F2ED /* Fonts */,
 				71E7B2B720160296008A7F81 /* DB */,
@@ -193,6 +208,7 @@
 				71E7B2C42018C4C4008A7F81 /* SettingsTableViewController.swift */,
 				71E7B2C8201AFE37008A7F81 /* RecordsViewController.swift */,
 				7161A2E220334E4400EFFE77 /* Images.xcassets */,
+				71EE33572044108E000E41DF /* Extensions.swift */,
 			);
 			path = SwipeProto;
 			sourceTree = "<group>";
@@ -220,9 +236,19 @@
 			path = ViewControllers;
 			sourceTree = "<group>";
 		};
+		717C9FD5203C8C6200984056 /* Edit record */ = {
+			isa = PBXGroup;
+			children = (
+				717C9FDA203C8CFB00984056 /* EditRecordTableCell.swift */,
+				717C9FDB203C8CFB00984056 /* EditRecordTableCell.xib */,
+			);
+			path = "Edit record";
+			sourceTree = "<group>";
+		};
 		71B5A47D1FDEE9C4001ECE87 /* Prod */ = {
 			isa = PBXGroup;
 			children = (
+				717C9FD5203C8C6200984056 /* Edit record */,
 				71B5A47E1FDEEA05001ECE87 /* DAO.swift */,
 				71E7B2C020175FBC008A7F81 /* SRViewController.swift */,
 				71E7B2B52014D8C4008A7F81 /* SQLiteProvider.swift */,
@@ -243,6 +269,7 @@
 		71E7B2B720160296008A7F81 /* DB */ = {
 			isa = PBXGroup;
 			children = (
+				719428E62055F00A00F35874 /* en_ru.sqlite */,
 				71E7B2BA201602C4008A7F81 /* de_en_dictionary.sqlite */,
 				71E7B2B9201602BF008A7F81 /* en_ru_dictionary.sqlite */,
 				71E7B2B8201602BA008A7F81 /* es_en_dictionary.sqlite */,
@@ -257,6 +284,16 @@
 				4D82BB05DFE9C28AD60B3C99 /* Pods-SwipeProto.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		71EE335420440F78000E41DF /* Scan */ = {
+			isa = PBXGroup;
+			children = (
+				71EE335520440FD2000E41DF /* TextPickerViewController.swift */,
+				71EE3359204410B8000E41DF /* TextPickerView.swift */,
+				71EE335B2044B1F3000E41DF /* TextProcessor.swift */,
+			);
+			path = Scan;
 			sourceTree = "<group>";
 		};
 		71FC932F202090740079F2ED /* Fonts */ = {
@@ -374,10 +411,12 @@
 				71472DC01F9B4A1200E32FCA /* Assets.xcassets in Resources */,
 				71FC934E202090740079F2ED /* SanFranciscoText-LightItalic.otf in Resources */,
 				71D37D8F1FC8A89C00E1A88C /* SuggestionCollectionViewCell.xib in Resources */,
+				719428E72055F00A00F35874 /* en_ru.sqlite in Resources */,
 				71FC9357202090740079F2ED /* SanFranciscoDisplay-Thin.otf in Resources */,
 				71FC934B202090740079F2ED /* SanFranciscoDisplay-Light.otf in Resources */,
 				71FC935A202090740079F2ED /* SanFranciscoDisplay-Semibold.otf in Resources */,
 				715A25201FBF1EE800E6AA91 /* DropDownTableViewCell.xib in Resources */,
+				717C9FDD203C8CFB00984056 /* EditRecordTableCell.xib in Resources */,
 				71FC9349202090740079F2ED /* SanFranciscoDisplay-Ultralight.otf in Resources */,
 				71FC9352202090740079F2ED /* SanFranciscoDisplay-Bold.otf in Resources */,
 				71FC9348202090740079F2ED /* SanFranciscoText-Regular.otf in Resources */,
@@ -456,6 +495,7 @@
 				71585B8D1FD2258400EB979B /* XibView.swift in Sources */,
 				717C9FD42039C4E900984056 /* BaseViewController.swift in Sources */,
 				71D37D861FC4BCF200E1A88C /* VocRecordTableViewCell.swift in Sources */,
+				71EE335A204410B8000E41DF /* TextPickerView.swift in Sources */,
 				715A251F1FBF1EE800E6AA91 /* DropDownTableViewCell.swift in Sources */,
 				71D37D8E1FC8A89C00E1A88C /* SuggestionCollectionViewCell.swift in Sources */,
 				7161A2E1202D1FA900EFFE77 /* SQLiteDatabase.swift in Sources */,
@@ -467,11 +507,15 @@
 				71D924521FCDD9A800D72CBC /* VocRecord.swift in Sources */,
 				71D37D8B1FC831DD00E1A88C /* ProtoStyle.swift in Sources */,
 				715A25191FBEE45F00E6AA91 /* InputViewController.swift in Sources */,
+				71EE335C2044B1F3000E41DF /* TextProcessor.swift in Sources */,
 				717C9FCB2037628C00984056 /* SelectTrainingViewController.swift in Sources */,
+				71EE335620440FD2000E41DF /* TextPickerViewController.swift in Sources */,
 				71D37D7D1FC1F39000E1A88C /* UnderlineTextField.swift in Sources */,
 				717C9FCD20387A6200984056 /* FlashCardsViewController.swift in Sources */,
+				717C9FDC203C8CFB00984056 /* EditRecordTableCell.swift in Sources */,
 				710DD1FE202201A500A12F0F /* LocalNotifications.swift in Sources */,
 				717C9FD12039821B00984056 /* TrainigMethod.swift in Sources */,
+				71EE33582044108E000E41DF /* Extensions.swift in Sources */,
 				715A25051FBDBFFC00E6AA91 /* UIView+Autolayout.swift in Sources */,
 				71472DB91F9B4A1200E32FCA /* AppDelegate.swift in Sources */,
 				717C9FCF203981EA00984056 /* TrainingMethodTableViewCell.swift in Sources */,

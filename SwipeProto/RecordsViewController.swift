@@ -33,7 +33,9 @@ class RecordsViewController: BaseViewController {
     definesPresentationContext = true
     
     self.navigationItem.title = "My words"
-
+    let btnSearch = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.search, target: self, action: #selector(showSearchBar))
+    self.navigationItem.setRightBarButton(btnSearch, animated: false)
+    
     let nib = UINib(nibName: "VocRecordTableViewCell", bundle: nil)
     tableView.register(nib, forCellReuseIdentifier: "VocRecordTableViewCell")
       // Do any additional setup after loading the view.
@@ -47,6 +49,10 @@ class RecordsViewController: BaseViewController {
     self.navigationItem.title = "My words (\(records.count))"
   }
   
+  @objc private func showSearchBar() {
+    searchController.isActive = true
+    searchController.searchBar.becomeFirstResponder()
+  }
   private func searchBarIsEmpty() -> Bool {
     // Returns true if the text is empty or nil
     return searchController.searchBar.text?.isEmpty ?? true
@@ -60,6 +66,7 @@ class RecordsViewController: BaseViewController {
     
     tableView.reloadData()
   }
+  
   private func isFiltering() -> Bool {
     return searchController.isActive && !searchBarIsEmpty()
   }
@@ -110,6 +117,32 @@ extension RecordsViewController: UITableViewDataSource, UITableViewDelegate {
     }
     cell.delegate = self
     return cell
+  }
+  
+  func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    if editingStyle == .delete {
+      let alert = UIAlertController(title: "Do you really want to delete record", message: "This action is not revertable", preferredStyle: .alert)
+      let confirm = UIAlertAction(title: "Delete", style: .destructive, handler: { [weak self] (action) in
+        if let r = self?.records[safe: indexPath.row] {
+          DAO.shared.deleteRecord(by: r.identifier)
+          self?.records.remove(at: indexPath.row)
+          self?.tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
+      })
+      let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+      alert.addAction(confirm)
+      alert.addAction(cancel)
+      present(alert, animated: true, completion: nil)
+    }
+  }
+  func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+    return !isFiltering()
+  }
+  
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    if isFiltering() {
+
+    }
   }
 }
 

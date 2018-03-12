@@ -55,7 +55,7 @@ public struct Vocabulary: Codable {
     switch (sourceLang.code, translationLang.code) {
     case (.german, .english): return "de_en_dictionary"
     case (.spanish, .english): return "es_en_dictionary"
-    case (.english, .russian): return "en_ru_dictionary"
+    case (.english, .russian): return "en_ru"
     default:
       return ""
     }

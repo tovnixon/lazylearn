@@ -9,6 +9,7 @@
 import UIKit
 
 class SuggestionCollectionViewCell: UICollectionViewCell {
+  static let reuseIdentifier = "suggestionCell"
   @IBOutlet weak var word: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
