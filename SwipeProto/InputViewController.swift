@@ -18,6 +18,13 @@ UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFl
     case inputConfirm
   }
 
+  enum ViewState: NSInteger {
+    case initial
+    case inputWord
+    case inputTranslation
+    case inputConfirm
+  }
+
   @IBOutlet weak var lblPartOfSpeech: UILabel!
   @IBOutlet weak var txtInput: UnderlineTextField!
   @IBOutlet weak var txtTrans: UnderlineTextField!
@@ -492,7 +499,7 @@ UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFl
     }
   }
   
-  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize  {
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
     var cellsCount = txtInput.isFirstResponder ? suggestions.count : 0
     if txtTrans.isFirstResponder {
       cellsCount = filterSuggestionsTrans(by: txtTrans.text).count

@@ -4,8 +4,6 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
-	<key>UIFileSharingEnabled</key>
-	<true/>
 	<key>CFBundleDisplayName</key>
 	<string>Lazy Learn</string>
 	<key>CFBundleExecutable</key>
@@ -46,6 +44,8 @@
 		<string>SanFranciscoDisplay-Regular.otf</string>
 		<string>SanFranciscoDisplay-Heavy.otf</string>
 	</array>
+	<key>UIFileSharingEnabled</key>
+	<true/>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

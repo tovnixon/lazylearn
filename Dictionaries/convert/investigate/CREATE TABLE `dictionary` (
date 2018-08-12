@@ -1,0 +1,6 @@
+CREATE TABLE `dictionary` (
+	`word`	TEXT,
+	`translation`	TEXT,
+	`meaning`	TEXT,
+	`pos`	TEXT
+);

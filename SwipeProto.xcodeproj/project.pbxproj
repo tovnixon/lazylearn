@@ -28,6 +28,13 @@
 		717C9FDC203C8CFB00984056 /* EditRecordTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 717C9FDA203C8CFB00984056 /* EditRecordTableCell.swift */; };
 		717C9FDD203C8CFB00984056 /* EditRecordTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 717C9FDB203C8CFB00984056 /* EditRecordTableCell.xib */; };
 		719428E72055F00A00F35874 /* en_ru.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 719428E62055F00A00F35874 /* en_ru.sqlite */; };
+		719428EA205694B000F35874 /* AddWordsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719428E9205694B000F35874 /* AddWordsViewController.swift */; };
+		719428EC205694E800F35874 /* AddWords.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 719428EB205694E800F35874 /* AddWords.storyboard */; };
+		719428EE2056959E00F35874 /* AddWordsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719428ED2056959E00F35874 /* AddWordsViewModel.swift */; };
+		719428F12056AA7900F35874 /* SuggestionCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719428F02056AA7900F35874 /* SuggestionCellViewModel.swift */; };
+		719428F32056AD2400F35874 /* CellRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719428F22056AD2400F35874 /* CellRepresentable.swift */; };
+		719428F62056AE3200F35874 /* SuggestionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719428F42056AE3200F35874 /* SuggestionViewCell.swift */; };
+		719428F72056AE3200F35874 /* SuggestionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 719428F52056AE3200F35874 /* SuggestionViewCell.xib */; };
 		719F682220228B300096E35A /* CollectionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719F682120228B300096E35A /* CollectionExtensions.swift */; };
 		71A60FC5202D024B004344EC /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71A60FC4202D024B004344EC /* Model.swift */; };
 		71B5A47F1FDEEA05001ECE87 /* DAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B5A47E1FDEEA05001ECE87 /* DAO.swift */; };
@@ -101,6 +108,13 @@
 		717C9FDA203C8CFB00984056 /* EditRecordTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRecordTableCell.swift; sourceTree = "<group>"; };
 		717C9FDB203C8CFB00984056 /* EditRecordTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditRecordTableCell.xib; sourceTree = "<group>"; };
 		719428E62055F00A00F35874 /* en_ru.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; name = en_ru.sqlite; path = ../../../../Laboratory/Dictionaries/convert/test/en_ru.sqlite; sourceTree = "<group>"; };
+		719428E9205694B000F35874 /* AddWordsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWordsViewController.swift; sourceTree = "<group>"; };
+		719428EB205694E800F35874 /* AddWords.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AddWords.storyboard; sourceTree = "<group>"; };
+		719428ED2056959E00F35874 /* AddWordsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWordsViewModel.swift; sourceTree = "<group>"; };
+		719428F02056AA7900F35874 /* SuggestionCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionCellViewModel.swift; sourceTree = "<group>"; };
+		719428F22056AD2400F35874 /* CellRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellRepresentable.swift; sourceTree = "<group>"; };
+		719428F42056AE3200F35874 /* SuggestionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionViewCell.swift; sourceTree = "<group>"; };
+		719428F52056AE3200F35874 /* SuggestionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SuggestionViewCell.xib; sourceTree = "<group>"; };
 		719F682120228B300096E35A /* CollectionExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionExtensions.swift; sourceTree = "<group>"; };
 		71A60FC4202D024B004344EC /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		71B5A47E1FDEEA05001ECE87 /* DAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DAO.swift; sourceTree = "<group>"; };
@@ -189,6 +203,8 @@
 		71472DB71F9B4A1200E32FCA /* SwipeProto */ = {
 			isa = PBXGroup;
 			children = (
+				719428EF2056AA5500F35874 /* Suggestion */,
+				719428E82056948B00F35874 /* AddWords */,
 				71EE335420440F78000E41DF /* Scan */,
 				717C9FD22039C4C200984056 /* ViewControllers */,
 				71FC932F202090740079F2ED /* Fonts */,
@@ -209,6 +225,7 @@
 				71E7B2C8201AFE37008A7F81 /* RecordsViewController.swift */,
 				7161A2E220334E4400EFFE77 /* Images.xcassets */,
 				71EE33572044108E000E41DF /* Extensions.swift */,
+				719428F22056AD2400F35874 /* CellRepresentable.swift */,
 			);
 			path = SwipeProto;
 			sourceTree = "<group>";
@@ -243,6 +260,26 @@
 				717C9FDB203C8CFB00984056 /* EditRecordTableCell.xib */,
 			);
 			path = "Edit record";
+			sourceTree = "<group>";
+		};
+		719428E82056948B00F35874 /* AddWords */ = {
+			isa = PBXGroup;
+			children = (
+				719428E9205694B000F35874 /* AddWordsViewController.swift */,
+				719428EB205694E800F35874 /* AddWords.storyboard */,
+				719428ED2056959E00F35874 /* AddWordsViewModel.swift */,
+			);
+			path = AddWords;
+			sourceTree = "<group>";
+		};
+		719428EF2056AA5500F35874 /* Suggestion */ = {
+			isa = PBXGroup;
+			children = (
+				719428F02056AA7900F35874 /* SuggestionCellViewModel.swift */,
+				719428F42056AE3200F35874 /* SuggestionViewCell.swift */,
+				719428F52056AE3200F35874 /* SuggestionViewCell.xib */,
+			);
+			path = Suggestion;
 			sourceTree = "<group>";
 		};
 		71B5A47D1FDEE9C4001ECE87 /* Prod */ = {
@@ -394,7 +431,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				719428EC205694E800F35874 /* AddWords.storyboard in Resources */,
 				71FC934C202090740079F2ED /* SanFranciscoText-BoldItalic.otf in Resources */,
+				719428F72056AE3200F35874 /* SuggestionViewCell.xib in Resources */,
 				71FC9355202090740079F2ED /* SanFranciscoText-MediumItalic.otf in Resources */,
 				71E7B2BD201602C4008A7F81 /* de_en_dictionary.sqlite in Resources */,
 				71FC9347202090740079F2ED /* SanFranciscoText-RegularItalic.otf in Resources */,
@@ -490,6 +529,7 @@
 			files = (
 				71A60FC5202D024B004344EC /* Model.swift in Sources */,
 				71E7B2B62014D8C4008A7F81 /* SQLiteProvider.swift in Sources */,
+				719428EA205694B000F35874 /* AddWordsViewController.swift in Sources */,
 				719F682220228B300096E35A /* CollectionExtensions.swift in Sources */,
 				71E7B2C72018C5CE008A7F81 /* Vocabularies.swift in Sources */,
 				71585B8D1FD2258400EB979B /* XibView.swift in Sources */,
@@ -497,6 +537,7 @@
 				71D37D861FC4BCF200E1A88C /* VocRecordTableViewCell.swift in Sources */,
 				71EE335A204410B8000E41DF /* TextPickerView.swift in Sources */,
 				715A251F1FBF1EE800E6AA91 /* DropDownTableViewCell.swift in Sources */,
+				719428F32056AD2400F35874 /* CellRepresentable.swift in Sources */,
 				71D37D8E1FC8A89C00E1A88C /* SuggestionCollectionViewCell.swift in Sources */,
 				7161A2E1202D1FA900EFFE77 /* SQLiteDatabase.swift in Sources */,
 				71E7B2C9201AFE37008A7F81 /* RecordsViewController.swift in Sources */,
@@ -515,11 +556,14 @@
 				717C9FDC203C8CFB00984056 /* EditRecordTableCell.swift in Sources */,
 				710DD1FE202201A500A12F0F /* LocalNotifications.swift in Sources */,
 				717C9FD12039821B00984056 /* TrainigMethod.swift in Sources */,
+				719428EE2056959E00F35874 /* AddWordsViewModel.swift in Sources */,
+				719428F62056AE3200F35874 /* SuggestionViewCell.swift in Sources */,
 				71EE33582044108E000E41DF /* Extensions.swift in Sources */,
 				715A25051FBDBFFC00E6AA91 /* UIView+Autolayout.swift in Sources */,
 				71472DB91F9B4A1200E32FCA /* AppDelegate.swift in Sources */,
 				717C9FCF203981EA00984056 /* TrainingMethodTableViewCell.swift in Sources */,
 				71E7B2C52018C4C4008A7F81 /* SettingsTableViewController.swift in Sources */,
+				719428F12056AA7900F35874 /* SuggestionCellViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

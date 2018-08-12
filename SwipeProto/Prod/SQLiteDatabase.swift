@@ -76,10 +76,13 @@ extension SQLiteDatabase {
     let createStatement = """
     CREATE TABLE IF NOT EXISTS `records` (
     `\(VocRecordSQL.Labels.id.rawValue)`  INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    
     `\(VocRecordSQL.Labels.word.rawValue)`  TEXT,
     `\(VocRecordSQL.Labels.wordPartOfSpeech.rawValue)`  TEXT,
+    
     `\(VocRecordSQL.Labels.translation.rawValue)`  TEXT,
     `\(VocRecordSQL.Labels.translationPartOfSpeech.rawValue)`  TEXT,
+    
     `\(VocRecordSQL.Labels.creationDate.rawValue)`  REAL NOT NULL,
     `\(VocRecordSQL.Labels.nextDisplayDate.rawValue)`  REAL,
     `\(VocRecordSQL.Labels.neverLearned.rawValue)`  INTEGER DEFAULT 1,

@@ -501,7 +501,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How hard was to recall?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="err-Il-xr1">
-                                <rect key="frame" x="86" y="395" width="203.5" height="23"/>
+                                <rect key="frame" x="86.5" y="395" width="203.5" height="23"/>
                                 <fontDescription key="fontDescription" name="SanFranciscoText-Regular" family="San Francisco Text" pointSize="19"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>

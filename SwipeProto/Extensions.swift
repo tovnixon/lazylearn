@@ -40,6 +40,15 @@ extension String {
   }
 }
 
+extension Bool {
+  init(string: String?) {
+    if let s = string {
+      self = !s.isEmpty
+    }
+    self = false
+  }
+}
+
 extension UIImage {
   
   public func fixedOrientation() -> UIImage {

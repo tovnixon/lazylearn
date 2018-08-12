@@ -1,0 +1,16 @@
+LazyLearn roadmap
+
+## Major
+- add just flash cards learn mode
+- edit existing records
+- remove records
+- design training selection screen
+
+## Minor
+- add mnemo phrase
+- add lang code to space repetition screen
+
+
+Technical:
+- refactor SQL queries to single fetch method with predicate as a param
+- refactor InputVC, remove duplication code(voice)

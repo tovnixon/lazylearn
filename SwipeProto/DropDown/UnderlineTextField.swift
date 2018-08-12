@@ -43,7 +43,6 @@ class StagedButton: UIButton {
 class UnderlineLabel: UILabel {
   override func draw(_ rect: CGRect) {
     super.draw(rect)
-    //self.attributedText?.draw(in: rect)
     
     let startingPoint   = CGPoint(x: rect.minX, y: rect.maxY)
     let endingPoint     = CGPoint(x: rect.maxX, y: rect.maxY)
@@ -67,7 +66,6 @@ class UnderlineTextField: UITextField {
   var backspaceDelegate: BackspaceNotificator?
   
   public var forceLanguageCode = ""
-  //public var customPlaceholderAttr = [NSAttributedStringKey : Any]()
   
   public var solidUnderline: Bool = false {
     didSet {
@@ -76,7 +74,6 @@ class UnderlineTextField: UITextField {
   }
   
   override var textInputMode: UITextInputMode? {
-    //let language = type.get
     if forceLanguageCode == "" {
       return super.textInputMode
     }
